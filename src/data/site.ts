@@ -28,7 +28,7 @@ export const site = {
     languages: ['English B2'],
   },
   cta: {
-    title: 'Контакты',
+    title: 'Написать мне',
     text: '', // подзаголовок под «Контакты»; пусто — не показывается
   },
 };
@@ -61,8 +61,8 @@ export const cases: Case[] = [
     title: 'CRM для венчурного фонда',
     summary:
       'С нуля спроектировала рабочее место фонда: сделки, инвесторы, capital calls и отчёты — в одном инструменте вместо почты и таблиц. В 2026 пересобрала интерфейс.',
-    highlight: { value: 'Год+ в работе фонда', label: 'вся операционка — от первого контакта до отчёта LP' },
-    fact: { value: 'Почта + Диск → Spok', label: 'capital calls и документы в одном месте' },
+    highlight: { value: 'Год+ в работе фонда', label: 'вся операционка' },
+    fact: { value: 'Почта + Диск → Spok', label: 'всё в одном месте' },
     image: '/shots/spok/home.webp',
     desktop: true,
     imageAlt: 'Главный экран Spok: дашборд фонда с capital calls, задачами и встречами',
@@ -77,8 +77,8 @@ export const cases: Case[] = [
     title: 'Кабинет UGC-креатора',
     summary:
       'Перенесла работу креаторов из Slack в приложение: бриф, видео, проверка и выплаты. В редизайне 2026 — все ветки сценария, а не только удачная.',
-    highlight: { value: 'Slack → App Store', label: 'креаторы работают в приложении, а не в чатах' },
-    fact: { value: 'Все состояния', label: 'ошибки, ожидание и пустые экраны' },
+    highlight: { value: 'Slack → App Store', label: 'вместо чатов' },
+    fact: { value: 'Все состояния', label: 'ошибки, ожидание, пусто' },
     image: '/shots/plutus/hero.webp',
     imageAlt: 'Главная, разбор выплаты и разблокированная выплата — редизайн Plutus',
     tint: '#16131F',
@@ -89,11 +89,11 @@ export const cases: Case[] = [
     company: 'Migraine Heroes',
     logo: '/logos/migraine.webp',
     domain: 'Medtech · B2C · Mobile',
-    title: 'Дневник мигрени, который по силам во время приступа',
+    title: 'Дневник мигрени и привычек',
     summary:
       'Приложение для людей с мигренью: дневник приступов, календарь, питание и чат с практиками. Первый релиз вышел на моём дизайне; спустя три года я пересобрала главный сценарий.',
-    highlight: { value: '2 продукта → 1 вход', label: 'анкета переехала в приложение' },
-    fact: { value: '3 вопроса', label: 'и лог можно сохранить — даже в приступ' },
+    highlight: { value: '2 продукта → 1 вход', label: 'анкета в приложении' },
+    fact: { value: '3 вопроса', label: 'и лог сохранён' },
     image: '/shots/migraine/hero.webp',
     imageAlt: 'Онбординг, главная и приступ в процессе — редизайн Migraine Heroes',
     tint: '#EEF1E6',
