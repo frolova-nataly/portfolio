@@ -19,7 +19,16 @@ const { item } = Astro.props;
       </p>
       <p class="case__domain">{item.domain}</p>
       <h2 class="case__title" id={`${item.id}-title`}>
-        {item.href ? <a href={item.href}>{item.title}</a> : item.title}
+        {
+          item.href ? (
+            <a href={item.href}>
+              {item.title}
+              <span class="case__arrow" aria-hidden="true"><Icon name="arrow" size={22} /></span>
+            </a>
+          ) : (
+            item.title
+          )
+        }
       </h2>
     </div>
 
@@ -40,14 +49,6 @@ const { item } = Astro.props;
           )
         }
       </dl>
-      {
-        item.href && (
-          <a class="case__more" href={item.href} aria-label={`Читать кейс: ${item.title}`}>
-            Читать кейс
-            <Icon name="arrow" size={16} />
-          </a>
-        )
-      }
       </div>
     </div>
   </div>
@@ -55,10 +56,10 @@ const { item } = Astro.props;
   {
     item.href ? (
       <a class="case__shot-link" href={item.href} tabindex="-1" aria-hidden="true">
-        <Shot src={item.image} alt={item.imageAlt} tint={item.tint} caption={item.imageNote} phones={!!item.image && !item.desktop} />
+        <Shot src={item.image} alt={item.imageAlt} tint={item.tint} phones={!!item.image && !item.desktop} />
       </a>
     ) : (
-      <Shot src={item.image} alt={item.imageAlt} tint={item.tint} caption={item.imageNote} phones={!!item.image && !item.desktop} />
+      <Shot src={item.image} alt={item.imageAlt} tint={item.tint} phones={!!item.image && !item.desktop} />
     )
   }
 </article>
@@ -165,21 +166,21 @@ const { item } = Astro.props;
   .fact--accent dt {
     color: #3a3a3a;
   }
-  .case__more {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 15px;
-    font-weight: 550;
-    text-decoration: none;
-    border-bottom: 1px solid currentColor;
-    padding-bottom: 1px;
-  }
-  .case__more :global(svg) {
+  /* Стрелка у заголовка — подсказка, что карточка ведёт в кейс (на мобильном нет hover) */
+  .case__arrow {
+    display: inline-block;
+    margin-left: 6px;
+    vertical-align: 0.05em;
     transition: transform 0.2s ease;
   }
-  .case__more:hover :global(svg) {
-    transform: translate(2px, -2px);
+  .case__title a:hover .case__arrow,
+  .case:has(.case__shot-link:hover) .case__arrow {
+    transform: translate(3px, -3px);
+  }
+  .case:has(.case__shot-link:hover) .case__title a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
   }
   .case__shot-link {
     display: block;

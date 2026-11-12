@@ -39,15 +39,79 @@ const year = new Date().getFullYear();
 
     <Cta />
   </main>
+  <button class="to-top" type="button" aria-label="Наверх" data-to-top hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+  </button>
   <footer class="footer">
     <div class="container footer__inner">
-      <span>© {year} {site.name}</span>
+      <span>{site.name}, {year}</span>
       <a href="/">← Все кейсы</a>
     </div>
   </footer>
 </Base>
 
+<script>
+  // Кнопка «Наверх»: только на ПК (ширина от 1280px, мышь), появляется после первого экрана.
+  const btn = document.querySelector<HTMLButtonElement>('[data-to-top]');
+  const desktop = window.matchMedia('(min-width: 1280px) and (hover: hover) and (pointer: fine)');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (btn) {
+    const update = () => {
+      btn.hidden = !desktop.matches;
+      btn.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.8);
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    desktop.addEventListener('change', update);
+    update();
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: reduce.matches ? 'auto' : 'smooth' });
+      document.querySelector<HTMLElement>('.back')?.focus({ preventScroll: true });
+    });
+  }
+</script>
+
 <style>
+  .to-top {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    z-index: 40;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--ink);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.08);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  }
+  .to-top[hidden] {
+    display: none;
+  }
+  .to-top.is-visible {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .to-top:hover {
+    background: var(--accent);
+    border-color: transparent;
+  }
+  .to-top:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .to-top {
+      transition: none;
+    }
+  }
   .case-page {
     padding-top: 24px;
   }

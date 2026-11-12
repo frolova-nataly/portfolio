@@ -9,7 +9,7 @@ const { cta, contacts } = site;
   <div class="container">
     <div class="cta__box">
       <h2 id="cta-title" class="cta__title">{cta.title}</h2>
-      <p class="cta__text">{cta.text}</p>
+      {cta.text && <p class="cta__text">{cta.text}</p>}
       <div class="cta__actions">
         <a class="btn btn--primary" href={contacts.telegram} target="_blank" rel="noopener">
           <Icon name="send" />

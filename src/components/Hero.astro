@@ -31,6 +31,7 @@ const initials = site.name
       <p class="hero__lead">{hero.lead}</p>
       <ul class="hero__tags" aria-label="Направления">
         {hero.tags.map((t) => <li>{t}</li>)}
+        {hero.languages?.map((t) => <li class="hero__lang">{t}</li>)}
       </ul>
     </div>
   </div>
@@ -117,6 +118,12 @@ const initials = site.name
     font-weight: 500;
     padding: 6px 14px;
     border-radius: var(--r-pill);
+  }
+  /* язык — не отрасль: другой стиль и отступ от тегов */
+  .hero__tags .hero__lang {
+    background: transparent;
+    box-shadow: inset 0 0 0 1px var(--line);
+    margin-left: 8px;
   }
 
   @media (max-width: 640px) {
