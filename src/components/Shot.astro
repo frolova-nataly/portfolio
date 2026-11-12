@@ -1,0 +1,91 @@
+---
+// Экран кейса на цветной подложке. Без src показывает заглушку — перед публикацией их быть не должно.
+interface Props {
+  src?: string;
+  alt: string;
+  tint?: string;
+  caption?: string;
+  wide?: boolean; // шире текстовой колонки, почти на весь экран
+  ratio?: string; // соотношение сторон заглушки
+  label?: string; // подпись в заглушке
+  phones?: boolean; // картинка — группа телефонов на прозрачном фоне, без своей тени
+}
+const { src, alt, tint = '#F1F1EE', caption, wide = false, ratio = '16 / 10', label, phones = false } = Astro.props;
+const dark = /^#([0-3])/.test(tint) || tint.toLowerCase() === '#16131f';
+---
+
+<figure class:list={['shot', wide && 'shot--wide']}>
+  <div class:list={['shot__stage', dark && 'is-dark', phones && 'is-phones']} style={`--tint:${tint}; --ratio:${ratio}`}>
+    {
+      src ? (
+        <img src={src} alt={alt} loading="lazy" decoding="async" />
+      ) : (
+        <div class="shot__placeholder" role="img" aria-label={`Место для экрана: ${alt}`}>
+          <span>{label ?? 'Экран появится после ревью'}</span>
+        </div>
+      )
+    }
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .shot {
+    margin: 0;
+  }
+  .shot--wide {
+    width: min(1280px, calc(100vw - 48px));
+    margin-inline: calc((min(1280px, calc(100vw - 48px)) - 100%) / -2);
+  }
+  .shot__stage {
+    background: var(--tint);
+    border-radius: 20px;
+    padding: clamp(16px, 4vw, 56px);
+    overflow: hidden;
+  }
+  .shot__stage img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.06),
+      0 12px 40px rgb(0 0 0 / 0.08);
+  }
+  .is-phones {
+    padding: clamp(8px, 2vw, 24px);
+  }
+  .is-phones img {
+    box-shadow: none;
+    border-radius: 0;
+    max-width: 1100px;
+    margin-inline: auto;
+  }
+  .shot__placeholder {
+    aspect-ratio: var(--ratio);
+    border-radius: 10px;
+    border: 1.5px dashed rgb(0 0 0 / 0.14);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 16px;
+    color: var(--ink-2);
+    font-size: 14px;
+  }
+  .is-dark .shot__placeholder {
+    border-color: rgb(255 255 255 / 0.2);
+    color: rgb(255 255 255 / 0.7);
+  }
+  figcaption {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  @media (max-width: 640px) {
+    .shot--wide {
+      width: calc(100vw - 24px);
+      margin-inline: calc((100vw - 24px - 100%) / -2);
+    }
+    .shot__stage {
+      border-radius: 14px;
+    }
+  }
+</style>

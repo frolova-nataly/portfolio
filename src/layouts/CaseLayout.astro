@@ -1,0 +1,115 @@
+---
+import Base from './Base.astro';
+import Header from '../components/Header.astro';
+import Cta from '../components/Cta.astro';
+import '../styles/case.css';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  company: string;
+  logo?: string;
+  domain: string;
+  metaTitle: string;
+  metaDescription: string;
+}
+const { title, subtitle, company, logo, domain, metaTitle, metaDescription } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<Base title={metaTitle} description={metaDescription}>
+  <Header />
+  <main id="main" class="case-page">
+    <div class="container">
+      <a class="back" href="/"><span aria-hidden="true">←</span> Все кейсы</a>
+
+      <header class="intro">
+        <p class="intro__meta">
+          {logo && <img src={logo} alt="" width="28" height="28" />}
+          <span class="intro__company">{company}</span>
+          <span class="intro__domain">{domain}</span>
+        </p>
+        <h1 class="intro__title">{title}</h1>
+        <p class="intro__sub">{subtitle}</p>
+      </header>
+
+      <slot />
+    </div>
+
+    <Cta />
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© {year} {site.name}</span>
+      <a href="/">← Все кейсы</a>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  .case-page {
+    padding-top: 24px;
+  }
+  .back {
+    display: inline-flex;
+    gap: 6px;
+    font-size: 15px;
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .back:hover {
+    color: var(--ink);
+  }
+  .intro {
+    margin-top: 40px;
+    max-width: 820px;
+  }
+  .intro__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .intro__meta img {
+    border-radius: 7px;
+  }
+  .intro__company {
+    font-weight: 600;
+  }
+  .intro__domain {
+    color: var(--ink-2);
+  }
+  .intro__title {
+    margin-top: 20px;
+    font-size: clamp(36px, 5.4vw, 64px);
+    line-height: 1.04;
+    font-weight: 650;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .intro__sub {
+    margin-top: 18px;
+    font-size: clamp(18px, 1.8vw, 21px);
+    line-height: 1.45;
+    color: var(--ink-2);
+    max-width: 640px;
+  }
+  .footer {
+    padding-block: 24px 40px;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  @media (max-width: 640px) {
+    .intro {
+      margin-top: 28px;
+    }
+  }
+</style>

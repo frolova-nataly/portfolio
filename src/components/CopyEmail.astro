@@ -1,0 +1,72 @@
+---
+// Кнопка «Почта»: копирует адрес, без JS работает как обычная mailto-ссылка.
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+
+interface Props {
+  variant?: 'link' | 'button';
+  label?: string;
+}
+const { variant = 'link', label = 'Почта' } = Astro.props;
+const email = site.contacts.email;
+---
+
+<a
+  href={`mailto:${email}`}
+  class:list={['copy-email', variant === 'button' ? 'btn btn--secondary' : 'nav-link']}
+  data-email={email}
+  aria-label={`${label}: ${email}. Нажмите, чтобы скопировать`}
+>
+  {variant === 'button' && <Icon name="mail" />}
+  <span class="copy-email__text">{label}</span>
+  <span class="copy-email__done" aria-hidden="true">Скопировано</span>
+  <span class="visually-hidden" role="status" aria-live="polite"></span>
+</a>
+
+<style>
+  .copy-email {
+    position: relative;
+  }
+  .copy-email__done {
+    display: none;
+  }
+  .copy-email.is-copied .copy-email__text {
+    visibility: hidden;
+  }
+  .copy-email.is-copied .copy-email__done {
+    display: inline;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+  .btn.copy-email.is-copied .copy-email__done {
+    position: static;
+    transform: none;
+  }
+  .btn.copy-email.is-copied .copy-email__text {
+    display: none;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.copy-email').forEach((el) => {
+    el.addEventListener('click', async (e) => {
+      const email = el.dataset.email;
+      if (!email || !navigator.clipboard) return; // откроется почтовый клиент
+      e.preventDefault();
+      try {
+        await navigator.clipboard.writeText(email);
+        el.classList.add('is-copied');
+        const live = el.querySelector('[role="status"]');
+        if (live) live.textContent = `Адрес ${email} скопирован`;
+        setTimeout(() => {
+          el.classList.remove('is-copied');
+          if (live) live.textContent = '';
+        }, 2000);
+      } catch {
+        window.location.href = `mailto:${email}`;
+      }
+    });
+  });
+</script>

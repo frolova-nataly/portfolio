@@ -1,0 +1,211 @@
+---
+import Icon from './Icon.astro';
+import Shot from './Shot.astro';
+import type { Case } from '../data/site';
+
+interface Props {
+  item: Case;
+}
+const { item } = Astro.props;
+---
+
+<article class="case" id={item.id} aria-labelledby={`${item.id}-title`}>
+  <div class="case__grid">
+    <div class="case__left">
+      <p class="case__meta">
+        {item.logo && <img class="case__logo" src={item.logo} alt="" width="28" height="28" />}
+        <span class="case__company">{item.company}</span>
+        {item.concept && <span class="case__concept">Концепт</span>}
+      </p>
+      <p class="case__domain">{item.domain}</p>
+      <h2 class="case__title" id={`${item.id}-title`}>
+        {item.href ? <a href={item.href}>{item.title}</a> : item.title}
+      </h2>
+    </div>
+
+    <div class="case__right">
+      <p class="case__summary">{item.summary}</p>
+      <div class="case__row">
+      <dl class="case__facts">
+        <div class="fact fact--accent">
+          <dt>{item.highlight.label}</dt>
+          <dd>{item.highlight.value}</dd>
+        </div>
+        {
+          item.fact && (
+            <div class="fact">
+              <dt>{item.fact.label}</dt>
+              <dd>{item.fact.value}</dd>
+            </div>
+          )
+        }
+      </dl>
+      {
+        item.href && (
+          <a class="case__more" href={item.href} aria-label={`Читать кейс: ${item.title}`}>
+            Читать кейс
+            <Icon name="arrow" size={16} />
+          </a>
+        )
+      }
+      </div>
+    </div>
+  </div>
+
+  {
+    item.href ? (
+      <a class="case__shot-link" href={item.href} tabindex="-1" aria-hidden="true">
+        <Shot src={item.image} alt={item.imageAlt} tint={item.tint} caption={item.imageNote} phones={!!item.image && !item.desktop} />
+      </a>
+    ) : (
+      <Shot src={item.image} alt={item.imageAlt} tint={item.tint} caption={item.imageNote} phones={!!item.image && !item.desktop} />
+    )
+  }
+</article>
+
+<style>
+  .case {
+    padding-block: 40px 72px;
+    border-top: 1px solid var(--line);
+  }
+  .case:first-child {
+    border-top: 0;
+    padding-top: 8px;
+  }
+  .case__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 48px;
+    align-items: start;
+    margin-bottom: 24px;
+  }
+  .case__meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .case__logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+  }
+  .case__company {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .case__concept {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 9px;
+    border: 1px dashed var(--ink);
+    border-radius: var(--r-pill);
+  }
+  .case__domain {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  .case__title {
+    margin-top: 14px;
+    max-width: 14ch;
+    font-size: clamp(26px, 3vw, 34px);
+    line-height: 1.12;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  .case__title a {
+    text-decoration: none;
+  }
+  .case__title a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+  .case__summary {
+    font-size: 16px;
+    color: var(--ink-2);
+  }
+  .case__row {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+  }
+  .case__facts {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .fact {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border-radius: var(--r-sm);
+  }
+  .fact--accent {
+    background: var(--accent);
+  }
+  .fact dd {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .fact dt {
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--ink-2);
+  }
+  .fact--accent dt {
+    color: #3a3a3a;
+  }
+  .case__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 550;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  .case__more :global(svg) {
+    transition: transform 0.2s ease;
+  }
+  .case__more:hover :global(svg) {
+    transform: translate(2px, -2px);
+  }
+  .case__shot-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease;
+  }
+  .case__shot-link:hover {
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 860px) {
+    .case__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .case__title {
+      max-width: none;
+    }
+  }
+  @media (max-width: 640px) {
+    .case {
+      padding-block: 32px 48px;
+    }
+    .case__grid {
+      margin-bottom: 20px;
+    }
+  }
+</style>

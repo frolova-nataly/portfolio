@@ -1,0 +1,85 @@
+---
+import Icon from './Icon.astro';
+import CopyEmail from './CopyEmail.astro';
+import { site } from '../data/site';
+const c = site.contacts;
+---
+
+<header class="header" data-header>
+  <div class="container header__inner">
+    <a class="logo" href="/" aria-label={`${site.name}, на главную`}>{site.logo}</a>
+    <nav class="header__nav" aria-label="Контакты">
+      <CopyEmail />
+      <a class="nav-link" href={c.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      <a class="nav-link" href={c.telegram} target="_blank" rel="noopener">Телеграм</a>
+      <a class="btn btn--primary btn--sm" href={c.cv} download>
+        <Icon name="download" size={16} />
+        CV
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(255 255 255 / 0.85);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  .header.is-scrolled {
+    border-bottom-color: var(--line);
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .header__nav :global(.nav-link) {
+    font-size: 16px;
+    text-decoration: none;
+    padding: 6px 0;
+    background: linear-gradient(var(--ink), var(--ink)) no-repeat 0 100% / 0 1px;
+    transition: background-size 0.2s ease;
+  }
+  .header__nav :global(.nav-link:hover) {
+    background-size: 100% 1px;
+  }
+
+  @media (max-width: 640px) {
+    .header__inner {
+      height: 60px;
+    }
+    .logo {
+      font-size: 24px;
+    }
+    /* На телефоне контакты живут в hero и в финальном блоке, в шапке остаётся только CV */
+    .header__nav :global(.nav-link) {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

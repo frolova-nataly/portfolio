@@ -1,0 +1,136 @@
+---
+import { site } from '../data/site';
+const { hero } = site;
+const initials = site.name
+  .split(' ')
+  .map((w) => w[0])
+  .join('');
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__inner">
+    <div class="hero__avatar">
+      {
+        site.avatar ? (
+          <img src={site.avatar} alt="" width="96" height="96" />
+        ) : (
+          <span aria-hidden="true">{initials}</span>
+        )
+      }
+    </div>
+
+    <div class="hero__text">
+      <div class="hero__top">
+        <h1 id="hero-title" class="hero__name">{site.name}</h1>
+        <p class="hero__status">
+          <span class="hero__dot" aria-hidden="true"></span>
+          {hero.status}
+        </p>
+      </div>
+      <p class="hero__role">{site.role}</p>
+      <p class="hero__lead">{hero.lead}</p>
+      <ul class="hero__tags" aria-label="Направления">
+        {hero.tags.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: 32px 44px;
+  }
+  .hero__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .hero__avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--accent);
+    display: grid;
+    place-items: center;
+    font-size: 32px;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+  }
+  .hero__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 12px 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+  }
+  .hero__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7cc000;
+    box-shadow: 0 0 0 3px var(--accent);
+  }
+  .hero__name {
+    font-size: clamp(30px, 3.6vw, 40px);
+    line-height: 1.1;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+  }
+  .hero__role {
+    margin-top: 6px;
+    font-size: 19px;
+    font-weight: 500;
+  }
+  .hero__lead {
+    margin-top: 12px;
+    max-width: 760px;
+    font-size: 16px;
+    color: var(--ink-2);
+  }
+  .hero__tags {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hero__tags li {
+    background: var(--accent);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: var(--r-pill);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding-block: 28px 40px;
+    }
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .hero__avatar {
+      width: 80px;
+      height: 80px;
+      font-size: 26px;
+    }
+  }
+</style>
