@@ -6,7 +6,7 @@ export const site = {
   logo: 'forlova',
   role: 'UX/UI дизайнер · B2B и B2C',
   avatar: '', // положи фото в public/avatar.jpg и впиши сюда '/avatar.jpg'
-  url: 'https://frolova.vercel.app', // поменяй на свой домен после деплоя
+  url: 'https://forlova.vercel.app', // поменяй на свой домен после деплоя
   meta: {
     title: 'Наталья Фролова — UX/UI дизайнер',
     description:
