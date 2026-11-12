@@ -108,7 +108,7 @@ const { item } = Astro.props;
   }
   .case__title {
     margin-top: 14px;
-    max-width: 14ch;
+    max-width: 22ch;
     font-size: clamp(26px, 3vw, 34px);
     line-height: 1.12;
     font-weight: 650;
@@ -176,11 +176,6 @@ const { item } = Astro.props;
   .case__title a:hover .case__arrow,
   .case:has(.case__shot-link:hover) .case__arrow {
     transform: translate(3px, -3px);
-  }
-  .case:has(.case__shot-link:hover) .case__title a {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 5px;
   }
   .case__shot-link {
     display: block;
