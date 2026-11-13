@@ -12,17 +12,16 @@ const tint = '#E9F0FC';
   company="NZVC · Spok"
   logo="/logos/nzvc.webp"
   domain="Fintech · B2B · Web"
-  title="CRM для венчурного фонда"
-  subtitle="Как я с нуля спроектировала рабочее место фонда — от первого контакта с компанией до капитал-колла и отчёта перед инвесторами."
+  title="CRM для венчурного фонда"
+  subtitle="Как я с нуля спроектировала рабочее место фонда — от первого контакта с компанией до капитал-колла и отчёта перед инвесторами."
 >
   <div class="case-hero">
     <Shot wide tint={tint} src="/shots/spok/home.webp" alt="Главный экран Spok: обзор фонда, задачи, компании без движения, встречи и AI-ассистент" caption="Концепт 2026 года." />
   </div>
 
-  <dl class="keyfacts">
-    <div><dt>вся операционка фонда</dt><dd>Год+</dd></div>
+  <dl class="keyfacts keyfacts--accent">
     <div><dt>10 мин вместо 100 на раунд</dt><dd>-90% времени на капитал-колл</dd></div>
-    <div><dt>и 500+ контактов</dt><dd>49 LP · 53 компании</dd></div>
+    <div><dt>вся операционка фонда</dt><dd>Год+</dd></div>
   </dl>
 
   <dl class="roles">
@@ -36,11 +35,11 @@ const tint = '#E9F0FC';
     </div>
     <div>
       <dt>Команда</dt>
-      <dd>Фаундер — главный пользователь и заказчик; разработчики</dd>
+      <dd>Фаундер — главный пользователь и заказчик; другие GP фонда — эпизодический фидбек; разработчики</dd>
     </div>
     <div>
       <dt>Платформа</dt>
-      <dd>Веб, десктоп</dd>
+      <dd>Веб, десктопный экран</dd>
     </div>
   </dl>
 
@@ -79,7 +78,7 @@ const tint = '#E9F0FC';
         четыре конкретные боли.
       </p>
     </div>
-    <div class="cards">
+    <div class="cards cards--pain">
       <div>
         <h3>Непонятно, где сделка</h3>
         <p>Компания только на примете, уже был звонок, думают или отказали — статус приходилось вспоминать.</p>
@@ -111,7 +110,8 @@ const tint = '#E9F0FC';
         <h3>Сложный домен</h3>
         <p>
           Инвестор не переводит деньги сразу: он обязуется дать сумму (commitment), а фонд вызывает её траншами, иногда
-          годами. Поэтому капитал-колл — не «отправить счёт», а процесс со статусами, историей и одобрениями.
+          годами. Капитал-колл устроен как процесс в несколько шагов — со статусами, историей и одобрениями, а не
+          как разовая отправка счёта.
         </p>
       </div>
     </div>
@@ -133,27 +133,27 @@ const tint = '#E9F0FC';
         </thead>
         <tbody>
           <tr>
-            <td>HubSpot</td>
+            <td><a href="https://www.hubspot.com" target="_blank" rel="noopener">HubSpot</a></td>
             <td>Табы внутри карточки без перезагрузки — легли в профили компаний и LP: почта, файлы, раунды и заметки без потери контекста</td>
             <td>Перегружен маркетингом, тяжёлый онбординг для маленькой команды</td>
           </tr>
           <tr>
-            <td>monday.com</td>
+            <td><a href="https://monday.com" target="_blank" rel="noopener">monday.com</a></td>
             <td>Lead Score — адаптировали в Connection Strength: насколько «тёплый» контакт с фаундером. Позже пересмотрели — см. «Что бы сделала иначе»</td>
             <td>Универсальный трекер: финтех-логику вроде траншей в нём не построить</td>
           </tr>
           <tr>
-            <td>Salesforce</td>
+            <td><a href="https://www.salesforce.com" target="_blank" rel="noopener">Salesforce</a></td>
             <td>Подход к воронкам и отчётам</td>
             <td>Тяжёлый интерфейс, для связей LP — фонд — стартап нужен интегратор</td>
           </tr>
           <tr>
-            <td>Zoho CRM</td>
+            <td><a href="https://www.zoho.com/crm/" target="_blank" rel="noopener">Zoho CRM</a></td>
             <td>Понятный перевод сделок по этапам воронки</td>
             <td>Устаревший UI и жёсткая структура данных</td>
           </tr>
           <tr>
-            <td>Zendesk</td>
+            <td><a href="https://www.zendesk.com" target="_blank" rel="noopener">Zendesk</a></td>
             <td>Таймлайн взаимодействий и писем — основа истории по сделке</td>
             <td>Заточен под поддержку клиентов, а не под долгие финансовые сделки</td>
           </tr>
@@ -187,9 +187,6 @@ const tint = '#E9F0FC';
   <!-- 6. Решения -->
   <section class="chapter" aria-labelledby="ch-decisions">
     <div class="chapter__head"><span class="chapter__num">06</span><h2 id="ch-decisions">Ключевые решения</h2></div>
-    <div class="chapter__body">
-      <p>Эти решения работают в Spok и сегодня.</p>
-    </div>
 
     <div class="decision">
       <div class="decision__head">

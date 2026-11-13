@@ -40,14 +40,6 @@ const { item } = Astro.props;
           <dt>{item.highlight.label}</dt>
           <dd>{item.highlight.value}</dd>
         </div>
-        {
-          item.fact && (
-            <div class="fact">
-              <dt>{item.fact.label}</dt>
-              <dd>{item.fact.value}</dd>
-            </div>
-          )
-        }
       </dl>
       </div>
     </div>
@@ -108,7 +100,7 @@ const { item } = Astro.props;
   }
   .case__title {
     margin-top: 14px;
-    max-width: 22ch;
+    max-width: 26ch;
     font-size: clamp(26px, 3vw, 34px);
     line-height: 1.12;
     font-weight: 650;

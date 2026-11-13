@@ -16,6 +16,7 @@ interface Props {
 }
 const { title, subtitle, company, logo, domain, metaTitle, metaDescription } = Astro.props;
 const year = new Date().getFullYear();
+const domainTags = domain.split('·').map((t) => t.trim());
 ---
 
 <Base title={metaTitle} description={metaDescription}>
@@ -28,8 +29,10 @@ const year = new Date().getFullYear();
         <p class="intro__meta">
           {logo && <img src={logo} alt="" width="28" height="28" />}
           <span class="intro__company">{company}</span>
-          <span class="intro__domain">{domain}</span>
         </p>
+        <ul class="intro__tags" aria-label="Направления">
+          {domainTags.map((t) => <li>{t}</li>)}
+        </ul>
         <h1 class="intro__title">{title}</h1>
         <p class="intro__sub">{subtitle}</p>
       </header>
@@ -142,8 +145,20 @@ const year = new Date().getFullYear();
   .intro__company {
     font-weight: 600;
   }
-  .intro__domain {
-    color: var(--ink-2);
+  .intro__tags {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .intro__tags li {
+    background: var(--accent);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: var(--r-pill);
   }
   .intro__title {
     margin-top: 20px;
