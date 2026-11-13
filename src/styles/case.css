@@ -500,6 +500,16 @@
   padding: 0;
   color: var(--ink-2);
 }
+.flow--pain {
+  justify-content: center;
+}
+.flow--pain li:not(.arrow) {
+  border-color: #f0b8b3;
+  color: #c6362b;
+}
+.flow--pain li.arrow {
+  color: #e2958f;
+}
 @media (max-width: 640px) {
   .compare {
     grid-template-columns: 1fr;
