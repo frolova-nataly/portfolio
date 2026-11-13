@@ -50,13 +50,15 @@ const email = site.contacts.email;
 </style>
 
 <script>
+  // Копируем адрес через Clipboard API; если недоступен или запрещён политикой браузера —
+  // пробуем старый способ через execCommand; если и он не сработал, открываем почтовый клиент.
   document.querySelectorAll<HTMLAnchorElement>('.copy-email').forEach((el) => {
-    el.addEventListener('click', async (e) => {
+    el.addEventListener('click', (e) => {
       const email = el.dataset.email;
-      if (!email || !navigator.clipboard) return; // откроется почтовый клиент
+      if (!email) return;
       e.preventDefault();
-      try {
-        await navigator.clipboard.writeText(email);
+
+      const showCopied = () => {
         el.classList.add('is-copied');
         const live = el.querySelector('[role="status"]');
         if (live) live.textContent = `Адрес ${email} скопирован`;
@@ -64,7 +66,35 @@ const email = site.contacts.email;
           el.classList.remove('is-copied');
           if (live) live.textContent = '';
         }, 2000);
-      } catch {
+      };
+
+      const legacyCopy = () => {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = email;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          const ok = document.execCommand('copy');
+          document.body.removeChild(ta);
+          return ok;
+        } catch {
+          return false;
+        }
+      };
+
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard
+          .writeText(email)
+          .then(showCopied)
+          .catch(() => {
+            if (legacyCopy()) showCopied();
+            else window.location.href = `mailto:${email}`;
+          });
+      } else if (legacyCopy()) {
+        showCopied();
+      } else {
         window.location.href = `mailto:${email}`;
       }
     });
