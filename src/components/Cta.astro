@@ -15,11 +15,7 @@ const { cta, contacts } = site;
           <Icon name="send" />
           Telegram {contacts.telegramHandle}
         </a>
-        <CopyEmail variant="button" label={contacts.email} />
-        <a class="btn btn--secondary" href={contacts.cv} download="Фролова Наталья CV.pdf">
-          <Icon name="download" />
-          CV
-        </a>
+        <CopyEmail variant="button" label="Почта" />
         <a class="btn btn--secondary" href={contacts.linkedin} target="_blank" rel="noopener">
           <Icon name="linkedin" />
           LinkedIn
@@ -40,9 +36,10 @@ const { cta, contacts } = site;
   }
   .cta__title {
     font-size: clamp(26px, 3vw, 34px);
-    line-height: 1.05;
+    line-height: 1.15;
     font-weight: 650;
     letter-spacing: -0.03em;
+    white-space: pre-line;
   }
   .cta__text {
     margin-top: 16px;
