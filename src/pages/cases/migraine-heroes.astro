@@ -162,6 +162,20 @@ const tint = '#EEF1E6';
         <div><dt>Гипотеза</dt><dd>Если день засчитан уже после главного, люди будут отмечать даже тяжёлые дни — и календарь станет честнее.</dd></div>
         <div><dt>Как проверила бы</dt><dd>Доля дней хотя бы с короткой записью и доля записей, к которым добавили детали для врача.</dd></div>
       </dl>
+      <figure class="demo" style={`--tint:${tint}`}>
+        <video
+          src="/shots/migraine/log-demo.mp4"
+          poster="/shots/migraine/log-demo.webp"
+          width="880"
+          height="1640"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label="Запись дня в прототипе: мигрень, сила и место боли, сохранение, шторка энергии, итоговая сводка"
+        ></video>
+      </figure>
       <PhoneFlow
         tint={tint}
         label="Запись дня по шагам"
@@ -284,6 +298,26 @@ const tint = '#EEF1E6';
 </CaseLayout>
 
 <style>
+  .demo {
+    margin: 48px 0 0;
+    width: 100vw;
+    margin-inline: calc((100vw - 100%) / -2);
+    background: var(--tint);
+    padding: clamp(32px, 5vw, 72px) 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .demo video {
+    display: block;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    max-height: min(84vh, 820px);
+    aspect-ratio: 880 / 1640;
+  }
+  .demo + :global(.pflow) {
+    margin-top: 0;
+  }
   @media (max-width: 640px) {
     .case-hero__wide {
       display: none;
