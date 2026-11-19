@@ -30,7 +30,6 @@ const { steps, label, tint = '#F1F1EE', mobileOnly = false, noCaptions = false }
       ))
     }
   </ol>
-  <figcaption class="pflow__hint">Листайте вбок →</figcaption>
 </figure>
 
 <style>
@@ -86,9 +85,6 @@ const { steps, label, tint = '#F1F1EE', mobileOnly = false, noCaptions = false }
     font-weight: 600;
     font-variant-numeric: tabular-nums;
   }
-  .pflow__hint {
-    display: none;
-  }
   .pflow--mobile-only {
     display: none;
   }
@@ -100,7 +96,7 @@ const { steps, label, tint = '#F1F1EE', mobileOnly = false, noCaptions = false }
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-padding-inline: 20px;
-      padding: 28px 20px 8px;
+      padding: 28px 20px;
       gap: 14px;
       scrollbar-width: none;
       overscroll-behavior-x: contain;
@@ -118,13 +114,6 @@ const { steps, label, tint = '#F1F1EE', mobileOnly = false, noCaptions = false }
     .pflow__step img,
     .pflow__step p {
       max-width: none;
-    }
-    .pflow__hint {
-      display: block;
-      margin: 0;
-      padding: 8px 20px 24px;
-      font-size: 13px;
-      color: var(--ink-2);
     }
   }
   @media (max-width: 640px) {
