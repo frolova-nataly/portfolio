@@ -126,6 +126,29 @@
   line-height: 1.3;
 }
 
+/* Карточки ограничений: красная рамка и «!» — условие, в которое надо уложиться */
+.cards--limit > div {
+  border-color: #f0b8b3;
+}
+.cards--limit h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cards--limit h3::before {
+  content: '!';
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fbe4e1;
+  color: #c6362b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 /* Карточки боли: красный крестик и обводка — «это было плохо» */
 .cards--pain > div {
   border-color: #f0b8b3;
