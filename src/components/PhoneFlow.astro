@@ -8,20 +8,24 @@ interface Props {
   steps: Step[];
   label: string; // что показывает флоу, для скринридера
   tint?: string;
+  mobileOnly?: boolean; // показывать только на телефоне (например, обложка-карусель)
+  noCaptions?: boolean;
 }
-const { steps, label, tint = '#F1F1EE' } = Astro.props;
+const { steps, label, tint = '#F1F1EE', mobileOnly = false, noCaptions = false } = Astro.props;
 ---
 
-<figure class="pflow" style={`--tint:${tint}; --n:${steps.length}`}>
+<figure class:list={['pflow', mobileOnly && 'pflow--mobile-only']} style={`--tint:${tint}; --n:${steps.length}`}>
   <ol class="pflow__track" aria-label={label} tabindex="0">
     {
       steps.map((s, i) => (
         <li class="pflow__step">
           <img src={s.src} alt={s.caption} width="1080" height="2208" loading="lazy" decoding="async" />
-          <p>
-            <span>{i + 1}</span>
-            {s.caption}
-          </p>
+          {!noCaptions && (
+            <p>
+              <span>{i + 1}</span>
+              {s.caption}
+            </p>
+          )}
         </li>
       ))
     }
@@ -85,6 +89,9 @@ const { steps, label, tint = '#F1F1EE' } = Astro.props;
   .pflow__hint {
     display: none;
   }
+  .pflow--mobile-only {
+    display: none;
+  }
 
   /* Планшет и телефон: карусель по одному экрану, виден край следующего */
   @media (max-width: 900px) {
@@ -118,6 +125,12 @@ const { steps, label, tint = '#F1F1EE' } = Astro.props;
       padding: 8px 20px 24px;
       font-size: 13px;
       color: var(--ink-2);
+    }
+  }
+  @media (max-width: 640px) {
+    .pflow--mobile-only {
+      display: block;
+      margin-top: 0;
     }
   }
   @media (prefers-reduced-motion: no-preference) {

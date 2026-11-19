@@ -17,7 +17,20 @@ const tint = '#EEF1E6';
   subtitle="Как я спроектировала приложение-дневник мигрени: пациент фиксирует приступы и приём лекарств, а по этим данным специалист корректирует лечение."
 >
   <div class="case-hero">
-    <Shot full phones tint={tint} src="/shots/migraine/hero.webp" alt="Запись приступа: сила и место боли, главная с календарём, шторка энергии" />
+    <div class="case-hero__wide">
+      <Shot full phones tint={tint} src="/shots/migraine/hero.webp" alt="Запись приступа: сила и место боли, главная с календарём, шторка энергии" />
+    </div>
+    <PhoneFlow
+      mobileOnly
+      noCaptions
+      tint={tint}
+      label="Главные экраны приложения"
+      steps={[
+        { src: '/shots/migraine/flow/log-1.webp', caption: 'Главная с календарём месяца' },
+        { src: '/shots/migraine/flow/log-2.webp', caption: 'Сила и место боли на одном экране' },
+        { src: '/shots/migraine/flow/log-4.webp', caption: 'Шторка энергии' },
+      ]}
+    />
   </div>
 
   <dl class="keyfacts">
@@ -277,3 +290,11 @@ const tint = '#EEF1E6';
     </div>
   </section>
 </CaseLayout>
+
+<style>
+  @media (max-width: 640px) {
+    .case-hero__wide {
+      display: none;
+    }
+  }
+</style>
