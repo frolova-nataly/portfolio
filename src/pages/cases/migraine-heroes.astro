@@ -17,20 +17,34 @@ const tint = '#EEF1E6';
   subtitle="Как я спроектировала приложение-дневник мигрени: пациент фиксирует приступы и приём лекарств, а по этим данным специалист корректирует лечение."
 >
   <div class="case-hero">
-    <div class="case-hero__wide">
-      <Shot full phones tint={tint} src="/shots/migraine/hero.webp" alt="Запись приступа: сила и место боли, главная с календарём, шторка энергии" />
-    </div>
-    <PhoneFlow
-      mobileOnly
-      noCaptions
-      tint={tint}
-      label="Главные экраны приложения"
-      steps={[
-        { src: '/shots/migraine/flow/log-1.webp', caption: 'Главная с календарём месяца' },
-        { src: '/shots/migraine/flow/log-2.webp', caption: 'Сила и место боли на одном экране' },
-        { src: '/shots/migraine/flow/log-4.webp', caption: 'Шторка энергии' },
-      ]}
-    />
+    <figure class="hero-video" style={`--tint:${tint}`}>
+      <video
+        class="hero-video__wide"
+        src="/shots/migraine/hero-demo.mp4"
+        poster="/shots/migraine/hero-demo.webp"
+        width="2400"
+        height="1500"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-label="Запись дня в прототипе: мигрень, сила и место боли, сохранение, энергия, главная с идущим приступом"
+      ></video>
+      <video
+        class="hero-video__narrow"
+        src="/shots/migraine/log-demo.mp4"
+        poster="/shots/migraine/log-demo.webp"
+        width="880"
+        height="1640"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-label="Запись дня в прототипе: мигрень, сила и место боли, сохранение, энергия, главная с идущим приступом"
+      ></video>
+    </figure>
   </div>
 
   <dl class="keyfacts">
@@ -162,20 +176,6 @@ const tint = '#EEF1E6';
         <div><dt>Гипотеза</dt><dd>Если день засчитан уже после главного, люди будут отмечать даже тяжёлые дни — и календарь станет честнее.</dd></div>
         <div><dt>Как проверила бы</dt><dd>Доля дней хотя бы с короткой записью и доля записей, к которым добавили детали для врача.</dd></div>
       </dl>
-      <figure class="demo" style={`--tint:${tint}`}>
-        <video
-          src="/shots/migraine/log-demo.mp4"
-          poster="/shots/migraine/log-demo.webp"
-          width="880"
-          height="1640"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          aria-label="Запись дня в прототипе: мигрень, сила и место боли, сохранение, шторка энергии, итоговая сводка"
-        ></video>
-      </figure>
       <PhoneFlow
         tint={tint}
         label="Запись дня по шагам"
@@ -298,29 +298,35 @@ const tint = '#EEF1E6';
 </CaseLayout>
 
 <style>
-  .demo {
-    margin: 48px 0 0;
+  .hero-video {
+    margin: 0;
     width: 100vw;
     margin-inline: calc((100vw - 100%) / -2);
     background: var(--tint);
-    padding: clamp(32px, 5vw, 72px) 20px;
     display: flex;
     justify-content: center;
   }
-  .demo video {
+  .hero-video video {
     display: block;
     height: auto;
+  }
+  .hero-video__wide {
+    width: min(100%, 1440px, calc(78vh * 1.6));
+    aspect-ratio: 2400 / 1500;
+  }
+  .hero-video__narrow {
+    display: none !important;
     width: auto;
     max-width: 100%;
-    max-height: min(84vh, 820px);
+    max-height: 82vh;
     aspect-ratio: 880 / 1640;
   }
-  .demo + :global(.pflow) {
-    margin-top: 0;
-  }
   @media (max-width: 640px) {
-    .case-hero__wide {
-      display: none;
+    .hero-video__wide {
+      display: none !important;
+    }
+    .hero-video__narrow {
+      display: block !important;
     }
   }
 </style>
