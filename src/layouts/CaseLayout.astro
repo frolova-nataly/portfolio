@@ -2,10 +2,12 @@
 import Base from './Base.astro';
 import Header from '../components/Header.astro';
 import Cta from '../components/Cta.astro';
+import NextCase from '../components/NextCase.astro';
 import '../styles/case.css';
 import { site } from '../data/site';
 
 interface Props {
+  caseId?: string; // id из site.ts — для блока «Следующий кейс»
   title: string;
   subtitle: string;
   company: string;
@@ -14,7 +16,7 @@ interface Props {
   metaTitle: string;
   metaDescription: string;
 }
-const { title, subtitle, company, logo, domain, metaTitle, metaDescription } = Astro.props;
+const { caseId, title, subtitle, company, logo, domain, metaTitle, metaDescription } = Astro.props;
 const year = new Date().getFullYear();
 const domainTags = domain.split('·').map((t) => t.trim());
 ---
@@ -40,6 +42,8 @@ const domainTags = domain.split('·').map((t) => t.trim());
       </header>
 
       <slot />
+
+      {caseId && <NextCase current={caseId} />}
     </div>
 
     <Cta />

@@ -336,6 +336,26 @@
   font-size: 18px;
   line-height: 1.6;
 }
+/* Решение: заголовок и суть → экраны → подробности */
+.decision__body {
+  margin: 24px 0 0 56px;
+  max-width: 680px;
+}
+.decision__body > p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+.decision__body > p + p {
+  margin-top: 12px;
+}
+@media (max-width: 640px) {
+  .decision__body {
+    margin-left: 0;
+  }
+  .decision__body > p {
+    font-size: 17px;
+  }
+}
 .hypo {
   margin: 20px 0 0 56px;
   max-width: 680px;
