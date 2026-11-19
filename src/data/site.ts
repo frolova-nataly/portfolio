@@ -54,6 +54,21 @@ export type Case = {
 
 export const cases: Case[] = [
   {
+    id: 'migraine',
+    company: 'Migraine Heroes',
+    logo: '/logos/migraine.webp',
+    domain: 'Medtech · B2C · Mobile',
+    title: 'Дневник мигрени',
+    summary:
+      'Приложение для людей с мигренью: дневник приступов, календарь, питание и чат с практиками. Анкету перенесла в онбординг — один вход вместо разрыва между двумя продуктами.',
+    highlight: { value: '-70% вопросов в записи дня', label: '3 вместо 10' },
+    fact: { value: '-75% времени на запись', label: '~30 сек вместо ~2 мин' },
+    image: '/shots/migraine/hero.webp',
+    imageAlt: 'Онбординг, главная и приступ в процессе — Migraine Heroes',
+    tint: '#EEF1E6',
+    href: '/cases/migraine-heroes',
+  },
+  {
     id: 'nzvc',
     company: 'NZVC',
     logo: '/logos/nzvc.webp',
@@ -83,20 +98,5 @@ export const cases: Case[] = [
     imageAlt: 'Главная, разбор выплаты и разблокированная выплата — Plutus',
     tint: '#16131F',
     href: '/cases/plutus',
-  },
-  {
-    id: 'migraine',
-    company: 'Migraine Heroes',
-    logo: '/logos/migraine.webp',
-    domain: 'Medtech · B2C · Mobile',
-    title: 'Дневник мигрени',
-    summary:
-      'Приложение для людей с мигренью: дневник приступов, календарь, питание и чат с практиками. Анкету перенесла в онбординг — один вход вместо разрыва между двумя продуктами.',
-    highlight: { value: '-70% вопросов в записи дня', label: '3 вместо 10' },
-    fact: { value: '-75% времени на запись', label: '~30 сек вместо ~2 мин' },
-    image: '/shots/migraine/hero.webp',
-    imageAlt: 'Онбординг, главная и приступ в процессе — Migraine Heroes',
-    tint: '#EEF1E6',
-    href: '/cases/migraine-heroes',
   },
 ];
