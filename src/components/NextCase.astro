@@ -11,6 +11,10 @@ const { current } = Astro.props;
 const linked = cases.filter((c) => c.href);
 const i = linked.findIndex((c) => c.id === current);
 const next = i === -1 ? undefined : linked[(i + 1) % linked.length];
+// Последнее слово держим вместе со стрелкой, чтобы стрелка не уезжала на отдельную строку
+const words = next ? next.title.split(' ') : [];
+const lastWord = words.pop() ?? '';
+const head = words.join(' ');
 ---
 
 {
@@ -25,8 +29,7 @@ const next = i === -1 ? undefined : linked[(i + 1) % linked.length];
             <span class="next__domain">{next.domain}</span>
           </p>
           <p class="next__title">
-            {next.title}
-            <span class="next__arrow" aria-hidden="true"><Icon name="arrow" size={24} /></span>
+            {head && `${head} `}<span class="next__tail">{lastWord}<span class="next__arrow" aria-hidden="true"><Icon name="arrow" size={28} /></span></span>
           </p>
           <p class="next__fact">{next.highlight.value}</p>
         </div>
@@ -48,10 +51,10 @@ const next = i === -1 ? undefined : linked[(i + 1) % linked.length];
   }
   .next__card {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
     gap: 32px;
     align-items: center;
-    padding: 32px;
+    padding: 24px 24px 24px 32px;
     border: 1px solid var(--line);
     border-radius: var(--r-md);
     color: inherit;
@@ -89,21 +92,23 @@ const next = i === -1 ? undefined : linked[(i + 1) % linked.length];
     color: var(--ink-2);
   }
   .next__title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
     margin-top: 10px;
     font-size: clamp(26px, 3vw, 36px);
     font-weight: 650;
     letter-spacing: -0.02em;
     line-height: 1.1;
   }
+  .next__tail {
+    white-space: nowrap;
+  }
   .next__arrow {
     display: inline-flex;
+    margin-left: 10px;
+    vertical-align: -0.05em;
     transition: transform 0.2s;
   }
   .next__card:hover .next__arrow {
-    transform: translateX(6px);
+    transform: translate(4px, -4px);
   }
   .next__fact {
     display: inline-block;
@@ -118,8 +123,8 @@ const next = i === -1 ? undefined : linked[(i + 1) % linked.length];
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 260px;
-    padding: 20px;
+    height: 380px;
+    padding: 16px;
     border-radius: var(--r-sm);
     background: var(--tint);
     overflow: hidden;
@@ -149,7 +154,7 @@ const next = i === -1 ? undefined : linked[(i + 1) % linked.length];
       padding: 24px;
     }
     .next__shot {
-      height: 200px;
+      height: 260px;
     }
   }
 </style>
