@@ -246,7 +246,20 @@
 .bench td:first-child {
   font-weight: 650;
   white-space: nowrap;
-  width: 120px;
+  width: 160px;
+}
+/* Иконка приложения перед названием */
+.bench__app {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.bench__app img {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 5.5px; /* ~22% стороны — форма app-иконки */
+  box-shadow: 0 0 0 1px var(--line); /* светлые иконки не сливаются с фоном */
 }
 .bench td:first-child a {
   color: inherit;
