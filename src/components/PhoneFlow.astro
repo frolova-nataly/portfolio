@@ -30,25 +30,25 @@ const { steps, label, tint = '#F1F1EE' } = Astro.props;
 </figure>
 
 <style>
+  /* На всю ширину окна: подложка от края до края, телефоны — в ряд по центру */
   .pflow {
-    margin: 40px 0 0;
-    width: min(1280px, calc(100vw - 48px));
-    margin-inline: calc((min(1280px, calc(100vw - 48px)) - 100%) / -2);
+    margin: 48px 0 0;
+    width: 100vw;
+    margin-inline: calc((100vw - 100%) / -2);
+    background: var(--tint);
   }
   .pflow__track {
     list-style: none;
-    margin: 0;
-    padding: clamp(24px, 4vw, 56px);
-    background: var(--tint);
-    border-radius: 20px;
+    margin: 0 auto;
+    padding: clamp(40px, 5vw, 88px) clamp(24px, 4vw, 64px);
+    max-width: 1760px;
     display: grid;
     grid-template-columns: repeat(var(--n), minmax(0, 1fr));
-    gap: clamp(12px, 2vw, 32px);
-    max-width: 100%;
+    gap: clamp(16px, 2.4vw, 48px);
   }
   .pflow__track:focus-visible {
     outline: 2px solid var(--focus);
-    outline-offset: 3px;
+    outline-offset: -4px;
   }
   .pflow__step {
     min-width: 0;
@@ -57,15 +57,15 @@ const { steps, label, tint = '#F1F1EE' } = Astro.props;
     display: block;
     width: 100%;
     height: auto;
-    max-width: 280px;
+    max-width: 340px;
     margin-inline: auto;
   }
   .pflow__step p {
-    margin: 14px auto 0;
-    max-width: 280px;
+    margin: 16px auto 0;
+    max-width: 340px;
     display: flex;
     gap: 8px;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.4;
     color: var(--ink-2);
   }
@@ -73,8 +73,8 @@ const { steps, label, tint = '#F1F1EE' } = Astro.props;
     flex: none;
     display: inline-grid;
     place-items: center;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     background: #fff;
     color: var(--ink);
@@ -86,19 +86,14 @@ const { steps, label, tint = '#F1F1EE' } = Astro.props;
     display: none;
   }
 
-  /* Телефон: карусель, виден край следующего экрана */
-  @media (max-width: 640px) {
-    .pflow {
-      width: 100vw;
-      margin-inline: calc((100vw - 100%) / -2);
-    }
+  /* Планшет и телефон: карусель по одному экрану, виден край следующего */
+  @media (max-width: 900px) {
     .pflow__track {
       display: flex;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-padding-inline: 20px;
-      padding: 24px 20px;
-      border-radius: 0;
+      padding: 28px 20px 8px;
       gap: 14px;
       scrollbar-width: none;
       overscroll-behavior-x: contain;
@@ -107,8 +102,11 @@ const { steps, label, tint = '#F1F1EE' } = Astro.props;
       display: none;
     }
     .pflow__step {
-      flex: 0 0 74%;
+      flex: 0 0 min(74%, 300px);
       scroll-snap-align: start;
+    }
+    .pflow__step:last-child {
+      margin-right: 20px;
     }
     .pflow__step img,
     .pflow__step p {
@@ -116,7 +114,8 @@ const { steps, label, tint = '#F1F1EE' } = Astro.props;
     }
     .pflow__hint {
       display: block;
-      margin: 10px 20px 0;
+      margin: 0;
+      padding: 8px 20px 24px;
       font-size: 13px;
       color: var(--ink-2);
     }

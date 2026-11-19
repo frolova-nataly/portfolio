@@ -9,12 +9,13 @@ interface Props {
   ratio?: string; // соотношение сторон заглушки
   label?: string; // подпись в заглушке
   phones?: boolean; // картинка — группа телефонов на прозрачном фоне, без своей тени
+  full?: boolean; // на всю ширину окна, подложка от края до края
 }
-const { src, alt, tint = '#F1F1EE', caption, wide = false, ratio = '16 / 10', label, phones = false } = Astro.props;
+const { src, alt, tint = '#F1F1EE', caption, wide = false, ratio = '16 / 10', label, phones = false, full = false } = Astro.props;
 const dark = /^#([0-3])/.test(tint) || tint.toLowerCase() === '#16131f';
 ---
 
-<figure class:list={['shot', wide && 'shot--wide']}>
+<figure class:list={['shot', wide && 'shot--wide', full && 'shot--full']}>
   <div class:list={['shot__stage', dark && 'is-dark', phones && 'is-phones']} style={`--tint:${tint}; --ratio:${ratio}`}>
     {
       src ? (
@@ -36,6 +37,17 @@ const dark = /^#([0-3])/.test(tint) || tint.toLowerCase() === '#16131f';
   .shot--wide {
     width: min(1280px, calc(100vw - 48px));
     margin-inline: calc((min(1280px, calc(100vw - 48px)) - 100%) / -2);
+  }
+  .shot--full {
+    width: 100vw;
+    margin-inline: calc((100vw - 100%) / -2);
+  }
+  .shot--full .shot__stage {
+    border-radius: 0;
+    padding: clamp(24px, 4vw, 64px) clamp(0px, 2vw, 32px);
+  }
+  .shot--full.shot .is-phones img {
+    max-width: 1280px;
   }
   .shot__stage {
     background: var(--tint);
@@ -80,7 +92,10 @@ const dark = /^#([0-3])/.test(tint) || tint.toLowerCase() === '#16131f';
     color: var(--ink-2);
   }
   @media (max-width: 640px) {
-    .shot--wide {
+    .shot--full .shot__stage {
+      border-radius: 0;
+    }
+    .shot--wide:not(.shot--full) {
       width: calc(100vw - 24px);
       margin-inline: calc((100vw - 24px - 100%) / -2);
     }

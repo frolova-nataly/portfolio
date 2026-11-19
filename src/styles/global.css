@@ -32,6 +32,7 @@ html {
 
 body {
   margin: 0;
+  overflow-x: clip; /* картинки на всю ширину не дают горизонтальной прокрутки из-за полосы прокрутки */
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font);
