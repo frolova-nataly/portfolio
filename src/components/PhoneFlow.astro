@@ -1,0 +1,129 @@
+---
+// Флоу из нескольких телефонов. На широком экране — в ряд, на телефоне — карусель с прокруткой по одному.
+interface Step {
+  src: string;
+  caption: string;
+}
+interface Props {
+  steps: Step[];
+  label: string; // что показывает флоу, для скринридера
+  tint?: string;
+}
+const { steps, label, tint = '#F1F1EE' } = Astro.props;
+---
+
+<figure class="pflow" style={`--tint:${tint}; --n:${steps.length}`}>
+  <ol class="pflow__track" aria-label={label} tabindex="0">
+    {
+      steps.map((s, i) => (
+        <li class="pflow__step">
+          <img src={s.src} alt={s.caption} width="560" height="1145" loading="lazy" decoding="async" />
+          <p>
+            <span>{i + 1}</span>
+            {s.caption}
+          </p>
+        </li>
+      ))
+    }
+  </ol>
+  <figcaption class="pflow__hint">Листайте вбок →</figcaption>
+</figure>
+
+<style>
+  .pflow {
+    margin: 40px 0 0;
+    width: min(1280px, calc(100vw - 48px));
+    margin-inline: calc((min(1280px, calc(100vw - 48px)) - 100%) / -2);
+  }
+  .pflow__track {
+    list-style: none;
+    margin: 0;
+    padding: clamp(24px, 4vw, 56px);
+    background: var(--tint);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    gap: clamp(12px, 2vw, 32px);
+    max-width: 100%;
+  }
+  .pflow__track:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+  .pflow__step {
+    min-width: 0;
+  }
+  .pflow__step img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 280px;
+    margin-inline: auto;
+  }
+  .pflow__step p {
+    margin: 14px auto 0;
+    max-width: 280px;
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ink-2);
+  }
+  .pflow__step p span {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .pflow__hint {
+    display: none;
+  }
+
+  /* Телефон: карусель, виден край следующего экрана */
+  @media (max-width: 640px) {
+    .pflow {
+      width: 100vw;
+      margin-inline: calc((100vw - 100%) / -2);
+    }
+    .pflow__track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 20px;
+      padding: 24px 20px;
+      border-radius: 0;
+      gap: 14px;
+      scrollbar-width: none;
+      overscroll-behavior-x: contain;
+    }
+    .pflow__track::-webkit-scrollbar {
+      display: none;
+    }
+    .pflow__step {
+      flex: 0 0 74%;
+      scroll-snap-align: start;
+    }
+    .pflow__step img,
+    .pflow__step p {
+      max-width: none;
+    }
+    .pflow__hint {
+      display: block;
+      margin: 10px 20px 0;
+      font-size: 13px;
+      color: var(--ink-2);
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .pflow__track {
+      scroll-behavior: smooth;
+    }
+  }
+</style>
