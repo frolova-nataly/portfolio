@@ -16,23 +16,9 @@ const tint = '#EEF1E6';
   title="Дневник мигрени"
   subtitle="Как я спроектировала приложение-дневник мигрени: пациент фиксирует приступы и приём лекарств, а по этим данным специалист корректирует лечение."
 >
-  <div class="case-hero">
+  <div class="case-hero hero-split">
     <figure class="hero-video" style={`--tint:${tint}`}>
       <video
-        class="hero-video__wide"
-        src="/shots/migraine/hero-demo.mp4"
-        poster="/shots/migraine/hero-demo.webp"
-        width="2400"
-        height="1500"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        aria-label="Запись дня в прототипе: мигрень, сила и место боли, сохранение, энергия, главная с идущим приступом"
-      ></video>
-      <video
-        class="hero-video__narrow"
         src="/shots/migraine/log-demo.mp4"
         poster="/shots/migraine/log-demo.webp"
         width="880"
@@ -45,19 +31,21 @@ const tint = '#EEF1E6';
         aria-label="Запись дня в прототипе: мигрень, сила и место боли, сохранение, энергия, главная с идущим приступом"
       ></video>
     </figure>
+
+    <div class="hero-split__info">
+      <dl class="keyfacts">
+        <div><dt>3 вместо 10</dt><dd>-70% вопросов в записи дня</dd></div>
+        <div><dt>~30 сек вместо ~2 мин</dt><dd>-75% времени на запись</dd></div>
+      </dl>
+
+      <dl class="roles">
+        <div><dt>Роль</dt><dd>Единственный дизайнер: сценарии, интерфейсы, передача в разработку</dd></div>
+        <div><dt>Срок</dt><dd>9 месяцев, 2023–2026</dd></div>
+        <div><dt>Команда</dt><dd>Основательница бренда — заказчица; мой руководитель; разработчики</dd></div>
+        <div><dt>Платформа</dt><dd>iOS и Android</dd></div>
+      </dl>
+    </div>
   </div>
-
-  <dl class="keyfacts">
-    <div><dt>3 вместо 10</dt><dd>-70% вопросов в записи дня</dd></div>
-    <div><dt>~30 сек вместо ~2 мин</dt><dd>-75% времени на запись</dd></div>
-  </dl>
-
-  <dl class="roles">
-    <div><dt>Роль</dt><dd>Единственный дизайнер: сценарии, интерфейсы, передача в разработку</dd></div>
-    <div><dt>Срок</dt><dd>9 месяцев, 2023–2026</dd></div>
-    <div><dt>Команда</dt><dd>Основательница бренда — заказчица; мой руководитель; разработчики</dd></div>
-    <div><dt>Платформа</dt><dd>iOS и Android</dd></div>
-  </dl>
 
   <section class="chapter" aria-labelledby="ch-context">
     <div class="chapter__head"><span class="chapter__num">01</span><h2 id="ch-context">Контекст</h2></div>
@@ -298,35 +286,56 @@ const tint = '#EEF1E6';
 </CaseLayout>
 
 <style>
+  /* Обложка: слева видео прототипа, справа цифры и роль */
+  .hero-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
   .hero-video {
     margin: 0;
-    width: 100vw;
-    margin-inline: calc((100vw - 100%) / -2);
     background: var(--tint);
+    border-radius: var(--r-md);
     display: flex;
+    align-items: center;
     justify-content: center;
+    padding: 8px;
+    overflow: hidden;
   }
   .hero-video video {
     display: block;
-    height: auto;
-  }
-  .hero-video__wide {
-    width: min(100%, 1440px, calc(78vh * 1.6));
-    aspect-ratio: 2400 / 1500;
-  }
-  .hero-video__narrow {
-    display: none !important;
     width: auto;
+    height: auto;
     max-width: 100%;
-    max-height: 82vh;
+    max-height: min(78vh, 640px);
     aspect-ratio: 880 / 1640;
   }
-  @media (max-width: 640px) {
-    .hero-video__wide {
-      display: none !important;
+  .hero-split__info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .hero-split .keyfacts.keyfacts {
+    margin: 0;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+  }
+  .hero-split .keyfacts > div {
+    padding: 24px 26px;
+  }
+  .hero-split .roles.roles {
+    margin: 16px 0 0;
+    padding-top: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 20px;
+  }
+  @media (max-width: 760px) {
+    .hero-split {
+      grid-template-columns: 1fr;
     }
-    .hero-video__narrow {
-      display: block !important;
+    .hero-video video {
+      max-height: 82vh;
     }
   }
 </style>
