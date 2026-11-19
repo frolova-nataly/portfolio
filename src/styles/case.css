@@ -360,6 +360,9 @@
   font-size: 15px;
   line-height: 1.5;
 }
+.hypo > .hypo__wide {
+  grid-column: 1 / -1;
+}
 .hypo .is-partial dt::after {
   content: ' · частично';
   color: #a05a00;
