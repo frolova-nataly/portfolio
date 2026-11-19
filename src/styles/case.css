@@ -360,8 +360,60 @@
   font-size: 15px;
   line-height: 1.5;
 }
-.hypo > .hypo__wide {
-  grid-column: 1 / -1;
+/* Гипотеза + проверка: шире обычного, гипотеза — зелёная плитка */
+.hypo--test {
+  max-width: 840px;
+  gap: 10px;
+}
+.hypo--test > div {
+  padding: 20px 22px;
+}
+.hypo--test > .hypo__lead {
+  background: var(--accent);
+}
+.hypo--test > .hypo__lead dt {
+  color: #3a3a3a;
+}
+.hypo--test > .hypo__lead dd {
+  font-size: 17px;
+  font-weight: 550;
+  line-height: 1.45;
+}
+.hypo--test dd > p {
+  margin: 10px 0 0;
+}
+.people {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+}
+.person {
+  width: 20px;
+  height: 28px;
+  fill: #cfcfca;
+}
+.person.is-migraine {
+  fill: var(--ink);
+}
+.people__legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.people__legend .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cfcfca;
+}
+.people__legend .dot:not(:first-child) {
+  margin-left: 10px;
+}
+.people__legend .dot.is-migraine {
+  background: var(--ink);
 }
 .hypo .is-partial dt::after {
   content: ' · частично';
