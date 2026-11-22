@@ -1,0 +1,176 @@
+---
+// Слайдер десктопных экранов: на широком экране видно два слайда и край третьего,
+// на телефоне — один и край следующего. Прокрутка свайпом, колесом с Shift или стрелками.
+interface Slide {
+  src: string;
+  caption: string;
+  alt?: string;
+}
+interface Props {
+  slides: Slide[];
+  label: string; // что показывает слайдер, для скринридера
+  tint?: string;
+}
+const { slides, label, tint = '#F1F1EE' } = Astro.props;
+---
+
+<figure class="sslider" style={`--tint:${tint}`}>
+  <ol class="sslider__track" aria-label={label} tabindex="0">
+    {
+      slides.map((s, i) => (
+        <li class="sslider__slide">
+          <img src={s.src} alt={s.alt ?? s.caption} width="1672" height="1278" loading="lazy" decoding="async" />
+          <p>
+            <span>{i + 1}</span>
+            {s.caption}
+          </p>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="sslider__nav">
+    <button type="button" class="sslider__btn" data-dir="-1" aria-label="Предыдущий экран" disabled>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+    </button>
+    <button type="button" class="sslider__btn" data-dir="1" aria-label="Следующий экран">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+    </button>
+  </div>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sslider').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('.sslider__track')!;
+    const [prev, next] = root.querySelectorAll<HTMLButtonElement>('.sslider__btn');
+    const step = () => {
+      const s = track.querySelector<HTMLElement>('.sslider__slide');
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return s ? s.offsetWidth + gap : track.clientWidth;
+    };
+    const update = () => {
+      prev.disabled = track.scrollLeft < 4;
+      next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+    };
+    [prev, next].forEach((b) =>
+      b.addEventListener('click', () => track.scrollBy({ left: Number(b.dataset.dir) * step(), behavior: 'smooth' })),
+    );
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+</script>
+
+<style>
+  /* Подложка на всю ширину окна, слайды начинаются от левого края колонки текста */
+  .sslider {
+    margin: 48px 0 0;
+    width: 100vw;
+    margin-inline: calc((100vw - 100%) / -2);
+    background: var(--tint);
+    padding: clamp(32px, 4vw, 64px) 0 clamp(24px, 3vw, 40px);
+    --edge: max(24px, calc((100vw - 1280px) / 2));
+  }
+  .sslider__track {
+    list-style: none;
+    margin: 0;
+    padding: 0 var(--edge);
+    display: flex;
+    gap: clamp(12px, 1.6vw, 24px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--edge);
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .sslider__track::-webkit-scrollbar {
+    display: none;
+  }
+  .sslider__track:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: -4px;
+  }
+  /* Два слайда и край третьего: 2 × 44% + gap ≈ 90% ширины колонки */
+  .sslider__slide {
+    flex: 0 0 calc((min(1280px, 100vw - 48px)) * 0.445);
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+  .sslider__slide:last-child {
+    margin-right: var(--edge);
+  }
+  .sslider__slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .sslider__slide p {
+    margin: 8px 0 0;
+    padding-inline: 2%;
+    display: flex;
+    gap: 8px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--ink-2);
+  }
+  .sslider__slide p span {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .sslider__nav {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 20px var(--edge) 0;
+  }
+  .sslider__btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 0;
+    background: #fff;
+    color: var(--ink);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .sslider__btn svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .sslider__btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  .sslider__btn:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  @media (max-width: 760px) {
+    .sslider__slide {
+      flex-basis: 86%;
+    }
+    .sslider__nav {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .sslider__track {
+      scroll-behavior: smooth;
+    }
+  }
+</style>
