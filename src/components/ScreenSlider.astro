@@ -1,5 +1,5 @@
 ---
-// Слайдер десктопных экранов: на широком экране видно два слайда и край третьего,
+// Слайдер десктопных экранов: крупный слайд и край следующего,
 // на телефоне — один и край следующего. Прокрутка свайпом, колесом с Shift или стрелками.
 interface Slide {
   src: string;
@@ -89,9 +89,9 @@ const { slides, label, tint = '#F1F1EE' } = Astro.props;
     outline: 2px solid var(--focus);
     outline-offset: -4px;
   }
-  /* Два слайда и край третьего: 2 × 44% + gap ≈ 90% ширины колонки */
+  /* Крупный слайд и край следующего */
   .sslider__slide {
-    flex: 0 0 calc((min(1280px, 100vw - 48px)) * 0.445);
+    flex: 0 0 min(1180px, 78vw);
     scroll-snap-align: start;
     min-width: 0;
   }
