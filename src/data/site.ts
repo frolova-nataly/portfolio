@@ -94,7 +94,7 @@ export const cases: Case[] = [
     highlight: { value: '-83% ручных шагов менеджера', label: 'один канал вместо трёх' },
     fact: { value: 'Все состояния', label: 'ошибки, ожидание, пусто' },
     image: '/shots/plutus/hero.webp',
-    imageAlt: 'Главная, разбор выплаты и разблокированная выплата — Plutus',
+    imageAlt: 'Бриф со скопированными хэштегами, главная креатора и разблокированная выплата — Plutus',
     tint: '#16131F',
     href: '/cases/plutus',
   },

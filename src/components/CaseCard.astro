@@ -2,6 +2,8 @@
 import Icon from './Icon.astro';
 import Shot from './Shot.astro';
 import type { Case } from '../data/site';
+import { langFromPath, ui } from '../i18n';
+const t = ui[langFromPath(Astro.url.pathname)];
 
 interface Props {
   item: Case;
@@ -15,7 +17,7 @@ const { item } = Astro.props;
       <p class="case__meta">
         {item.logo && <img class="case__logo" src={item.logo} alt="" width="28" height="28" />}
         <span class="case__company">{item.company}</span>
-        {item.concept && <span class="case__concept">Концепт</span>}
+        {item.concept && <span class="case__concept">{t.concept}</span>}
       </p>
       <p class="case__domain">{item.domain}</p>
       <h2 class="case__title" id={`${item.id}-title`}>

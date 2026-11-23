@@ -1,0 +1,48 @@
+---
+// Главная страница целиком; язык берётся из адреса (/ или /en/)
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import CaseCard from './CaseCard.astro';
+import Cta from './Cta.astro';
+import { langFromPath, getSite, getCases, ui } from '../i18n';
+const lang = langFromPath(Astro.url.pathname);
+const site = getSite(lang);
+const cases = getCases(lang);
+const t = ui[lang];
+const year = new Date().getFullYear();
+---
+
+<Base>
+  <Header />
+  <main id="main">
+    <Hero />
+    <section aria-labelledby="cases-title">
+      <h2 id="cases-title" class="visually-hidden">{t.cases}</h2>
+      <div class="container">
+        {cases.map((item) => <CaseCard item={item} />)}
+      </div>
+    </section>
+    <Cta />
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>{site.name}, {year}</span>
+      <a href="#main">{t.toTop} ↑</a>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  .footer {
+    padding-block: 24px 40px;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+</style>

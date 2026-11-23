@@ -1,5 +1,7 @@
 ---
-import { site } from '../data/site';
+import { langFromPath, getSite, ui } from '../i18n';
+const lang = langFromPath(Astro.url.pathname);
+const site = getSite(lang);
 const { hero } = site;
 const initials = site.name
   .split(' ')
@@ -29,7 +31,7 @@ const initials = site.name
       </div>
       <p class="hero__role">{site.role}</p>
       <p class="hero__lead">{hero.lead}</p>
-      <ul class="hero__tags" aria-label="Направления">
+      <ul class="hero__tags" aria-label={ui[lang].directions}>
         {hero.tags.map((t) => <li>{t}</li>)}
         {hero.languages?.map((t) => <li class="hero__lang">{t}</li>)}
       </ul>

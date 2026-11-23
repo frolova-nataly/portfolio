@@ -1,8 +1,9 @@
 ---
 import Icon from './Icon.astro';
 import CopyEmail from './CopyEmail.astro';
-import { site } from '../data/site';
-const { cta, contacts } = site;
+import { langFromPath, getSite, ui } from '../i18n';
+const lang = langFromPath(Astro.url.pathname);
+const { cta, contacts } = getSite(lang);
 ---
 
 <section class="cta" aria-labelledby="cta-title" id="contacts">
@@ -11,15 +12,33 @@ const { cta, contacts } = site;
       <h2 id="cta-title" class="cta__title">{cta.title}</h2>
       {cta.text && <p class="cta__text">{cta.text}</p>}
       <div class="cta__actions">
-        <a class="btn btn--primary" href={contacts.telegram} target="_blank" rel="noopener">
-          <Icon name="send" />
-          Telegram {contacts.telegramHandle}
-        </a>
-        <CopyEmail variant="button" label="Почта" />
-        <a class="btn btn--secondary" href={contacts.linkedin} target="_blank" rel="noopener">
-          <Icon name="linkedin" />
-          LinkedIn
-        </a>
+        {
+          contacts.telegram ? (
+            <>
+              <a class="btn btn--primary" href={contacts.telegram} target="_blank" rel="noopener">
+                <Icon name="send" />
+                Telegram {contacts.telegramHandle}
+              </a>
+              <CopyEmail variant="button" label={ui[lang].email} />
+              <a class="btn btn--secondary" href={contacts.linkedin} target="_blank" rel="noopener">
+                <Icon name="linkedin" />
+                LinkedIn
+              </a>
+            </>
+          ) : (
+            <>
+              <a class="btn btn--primary" href={contacts.linkedin} target="_blank" rel="noopener">
+                <Icon name="linkedin" />
+                LinkedIn
+              </a>
+              <CopyEmail variant="button" label={ui[lang].email} />
+              <a class="btn btn--secondary" href={contacts.cv} download={ui[lang].cvFile}>
+                <Icon name="download" />
+                CV
+              </a>
+            </>
+          )
+        }
       </div>
     </div>
   </div>

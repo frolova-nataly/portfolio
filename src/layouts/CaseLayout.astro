@@ -4,7 +4,10 @@ import Header from '../components/Header.astro';
 import Cta from '../components/Cta.astro';
 import NextCase from '../components/NextCase.astro';
 import '../styles/case.css';
-import { site } from '../data/site';
+import { langFromPath, href, getSite, ui } from '../i18n';
+const lang = langFromPath(Astro.url.pathname);
+const site = getSite(lang);
+const t = ui[lang];
 
 interface Props {
   caseId?: string; // id из site.ts — для блока «Следующий кейс»
@@ -25,14 +28,14 @@ const domainTags = domain.split('·').map((t) => t.trim());
   <Header />
   <main id="main" class="case-page">
     <div class="container">
-      <a class="back" href="/"><span aria-hidden="true">←</span> Все кейсы</a>
+      <a class="back" href={href('/', lang)}><span aria-hidden="true">←</span> {t.allCases}</a>
 
       <header class="intro">
         <p class="intro__meta">
           {logo && <img src={logo} alt="" width="28" height="28" />}
           <span class="intro__company">{company}</span>
         </p>
-        <ul class="intro__tags" aria-label="Направления">
+        <ul class="intro__tags" aria-label={t.directions}>
           {domainTags.map((t) => <li>{t}</li>)}
         </ul>
         <div class="intro__head">
@@ -48,13 +51,13 @@ const domainTags = domain.split('·').map((t) => t.trim());
 
     <Cta />
   </main>
-  <button class="to-top" type="button" aria-label="Наверх" data-to-top hidden>
+  <button class="to-top" type="button" aria-label={t.toTop} data-to-top hidden>
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
   </button>
   <footer class="footer">
     <div class="container footer__inner">
       <span>{site.name}, {year}</span>
-      <a href="/">← Все кейсы</a>
+      <a href={href('/', lang)}>← {t.allCases}</a>
     </div>
   </footer>
 </Base>

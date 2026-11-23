@@ -1,0 +1,500 @@
+---
+// Plutus Media case study, English version. Mirrors src/pages/cases/plutus.astro.
+import CaseLayout from '../../../layouts/CaseLayout.astro';
+import PhoneFlow from '../../../components/PhoneFlow.astro';
+
+const tint = '#16131F';
+const flow = { tint, imgWidth: 1060, imgHeight: 2180 };
+const s = (name: string) => `/shots/plutus/flow/${name}.webp`;
+---
+
+<CaseLayout
+  caseId="plutus"
+  metaTitle="UGC creator app — Nataly Frolova case study"
+  metaDescription="How I moved UGC creators of the UK platform Plutus Media from Slack into a mobile app: brief, videos, review and payouts in one place."
+  company="Plutus Media"
+  logo="/logos/plutus.webp"
+  domain="AdTech · B2B2C · iOS · United Kingdom"
+  title="UGC creator app"
+  subtitle="How I moved creators’ work from Slack into an app — from brief to payout — and taught the wallet to explain why the money hasn’t arrived yet."
+>
+  <div class="case-hero hero-split">
+    <figure class="hero-video" style={`--tint:${tint}`}>
+      <video
+        src="/shots/plutus/payout-demo.mp4"
+        poster="/shots/plutus/payout-demo.webp"
+        width="880"
+        height="1640"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-label="Prototype flow: home, campaign, brief and copying hashtags, payout unlocked, confirmation and transfer status"
+      ></video>
+    </figure>
+
+    <div class="hero-split__info">
+      <dl class="keyfacts">
+        <div><dt>one channel instead of three</dt><dd>-83% manual steps for managers</dd></div>
+        <div><dt>iOS, late 2025</dt><dd>Launched on the App Store</dd></div>
+      </dl>
+
+      <dl class="roles">
+        <div><dt>Role</dt><dd>Sole designer: flows, UI, states, developer handoff</dd></div>
+        <div><dt>Timeline</dt><dd>10 months, 2025–2026</dd></div>
+        <div><dt>Team</dt><dd>My manager, 2–3 developers; on the Plutus side — the director, managers and a developer</dd></div>
+        <div><dt>Platform</dt><dd>iOS</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <section class="chapter" aria-labelledby="ch-context">
+    <div class="chapter__head"><span class="chapter__num">01</span><h2 id="ch-context">Context</h2></div>
+    <div class="chapter__body">
+      <p>
+        Plutus Media is a UK platform for UGC advertising. Brands launch campaigns, creators shoot videos for them
+        on TikTok and Instagram, and the platform counts views and pays the creator. Brands never deal with creators
+        directly — everything goes through the agency’s managers.
+      </p>
+      <p>
+        Creators aren’t stars but everyday content makers who apply on their own. Before the app, all the work lived
+        in Slack: an application in Google Forms, video links in a chat, and from there into the agency dashboard.
+      </p>
+    </div>
+  </section>
+
+  <section class="chapter" aria-labelledby="ch-task">
+    <div class="chapter__head"><span class="chapter__num">02</span><h2 id="ch-task">Goal</h2></div>
+    <div class="chapter__body">
+      <p class="lead-q">
+        Build an app where creators see their campaigns, submit videos, understand the status of each one and get paid
+        on their own — and free managers from manual back-and-forth. Behind this were four pains.
+      </p>
+    </div>
+    <div class="cards">
+      <div><h3>💸 Creators couldn’t see their money</h3><p>How much they’d earned and for what — Slack couldn’t tell them, and it couldn’t pay them either.</p></div>
+      <div><h3>💬 Managers were drowning in chats</h3><p>Their time went into manual work with creators instead of brands.</p></div>
+      <div><h3>📲 Not everyone needs Slack</h3><p>Creators had to install a work messenger for a single task.</p></div>
+      <div><h3>🧠 Rules lived in the manager’s head</h3><p>Creators found out why a video didn’t count only from chat messages.</p></div>
+    </div>
+    <ol class="flow flow--path" aria-label="Creator journey in the app">
+      <li>📝 Application on the website</li><li class="arrow" aria-hidden="true">→</li>
+      <li>✉️ Email invite</li><li class="arrow" aria-hidden="true">→</li>
+      <li>🔗 Account and socials</li><li class="arrow" aria-hidden="true">→</li>
+      <li>📣 Assigned to a campaign</li><li class="arrow" aria-hidden="true">→</li>
+      <li>📄 Brief</li><li class="arrow" aria-hidden="true">→</li>
+      <li>🎬 Video</li><li class="arrow" aria-hidden="true">→</li>
+      <li>🔍 Review</li><li class="arrow" aria-hidden="true">→</li>
+      <li>💰 Payout</li>
+    </ol>
+  </section>
+
+  <section class="chapter" aria-labelledby="ch-limits">
+    <div class="chapter__head"><span class="chapter__num">03</span><h2 id="ch-limits">Constraints</h2></div>
+    <div class="cards cards--limit">
+      <div><h3>Complex money rules</h3><p>A video counts only if it reaches the required views and follows the brief. Until the campaign’s video plan is done, the money stays pending.</p></div>
+      <div><h3>Delayed data</h3><p>Views don’t arrive right away: a fresh video has no data yet, and that can’t be shown as “not counted”.</p></div>
+      <div><h3>Other people’s accounts</h3><p>A creator could pass off someone else’s popular account as their own and get paid for someone else’s views.</p></div>
+      <div><h3>No direct access to creators</h3><p>I gathered context through the people who work with them every day: with the Plutus director — what the agency needs; with the creator manager — when money isn’t credited. She also reviewed my mockups.</p></div>
+    </div>
+    <div class="process">
+      <h3 class="process__title">How the work went</h3>
+      <ol class="process__steps">
+        <li><span>1</span><b>Task and brainstorm</b><p>We break down the task with my manager</p></li>
+        <li><span>2</span><b>Mockups and presentation</b><p>I present the solution to the Plutus director and managers</p></li>
+        <li><span>3</span><b>Sign-off</b><p>Revisions from feedback, payout rules checked with the creator manager</p></li>
+        <li><span>4</span><b>Developer handoff</b><p>Mockups, states and flows go to the developers</p></li>
+        <li><span>5</span><b>Extra states</b><p>Empty screens, errors and edge cases at the developers’ request</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter" aria-labelledby="ch-decisions">
+    <div class="chapter__head"><span class="chapter__num">04</span><h2 id="ch-decisions">Key decisions</h2></div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>The wallet shows what’s earned and why it can’t be withdrawn</h3>
+        <p>
+          The total is split into “Available” and “Pending”. When there’s nothing to withdraw, the button is disabled
+          and the reason sits right below it.
+        </p>
+      </div>
+      <PhoneFlow
+        {...flow}
+        label="Home and wallet"
+        steps={[
+          { src: s('home'), caption: 'Home: total, available and the next payout' },
+          { src: s('earnings'), caption: 'Wallet: the reason under the button and 29 of 30 progress' },
+          { src: s('earnings-nobank'), caption: 'No bank details — the main button becomes “Add bank details”' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          Each campaign pays out separately once its video plan is done. So the wallet shows the next payout — how many
+          videos are already counted and how many are left. If the money is ready but there are no bank details,
+          the withdraw button turns into “Add bank details”, with a note that the money stays safe in the balance.
+        </p>
+      </div>
+      <dl class="hypo">
+        <div><dt>Hypothesis</dt><dd>If the reason for a delay is shown next to the amount, the creator will fix it on their own instead of messaging a manager.</dd></div>
+        <div><dt>How I’d test it</dt><dd>Number of payout questions to support, before and after.</dd></div>
+      </dl>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Every video has a status and a next step</h3>
+        <p>
+          The breakdown opens as a sheet from the wallet: what counted, what didn’t and why. A video that didn’t count
+          always comes with an action — wait for views, replace the video, or open it and add hashtags.
+        </p>
+      </div>
+      <PhoneFlow
+        {...flow}
+        label="Payout breakdown by video"
+        steps={[
+          { src: s('earnings-sheet'), caption: 'Not counted — with a reason; a fresh video — “Checking”' },
+          { src: s('earnings-sheet-delayed'), caption: 'No data after 24 hours — the creator can report a delay' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          Views arrive with a delay. Without a separate status, an hour after posting the creator would see “not counted”
+          and go to support. So a fresh video gets its own state: “Checking, views update within 24 hours”. If there’s
+          still no data after a day, the status changes to “Still checking” with a “Report a delay” link — then a manager
+          checks the video by hand.
+        </p>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Payout conditions as a checklist, not rules in a chat</h3>
+        <p>You can see how many conditions are met and which one is missing. Notifications lead to where the problem can be fixed.</p>
+      </div>
+      <PhoneFlow
+        {...flow}
+        label="Payout conditions and notifications"
+        steps={[
+          { src: s('criteria'), caption: '4 of 5 met: one more video needed' },
+          { src: s('criteria-stopped'), caption: 'A manager stopped the campaign — the payout is available right away' },
+          { src: s('notifications'), caption: 'A “not counted” notification leads to the fix' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          At the top — requirements for any video in the campaign; below — the checklist for this specific payout:
+          video plan, invoices, bank details, identity check, minimum amount. A separate case: a manager stops the
+          campaign early — the plan isn’t complete, but the video condition is lifted and the money can be withdrawn.
+          Notifications are the only channel that tells creators a video didn’t count, so each one has a reason and an
+          action: “Missing campaign hashtags — tap to fix the video”.
+        </p>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Payout: confirmation, status and a calm return</h3>
+        <p>Before withdrawing — everything worth checking. After — where the money is and when it will arrive.</p>
+      </div>
+      <PhoneFlow
+        {...flow}
+        label="Payout step by step"
+        steps={[
+          { src: s('payout-unlocked'), caption: 'Plan done: $1,000 available to withdraw' },
+          { src: s('payout-sheet'), caption: 'Sheet: amount, account, fee, timing' },
+          { src: s('payout-requested'), caption: 'Transfer status and the date the money will arrive' },
+          { src: s('payout-failed'), caption: 'The bank returned the payment — the money is available again' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          When the campaign plan is done, the wallet shows the amount to withdraw and the counted videos. The confirmation
+          sheet shows the account, the account holder, the fee and the timing, with a warning above the button that the
+          payout can’t be cancelled once confirmed. Next comes a status screen: requested → sending to your bank →
+          arrives by 20 Nov. If the money hasn’t arrived by then, a support link is right there on the screen.
+        </p>
+        <p>
+          If the bank returns the payment, for example because the account holder name doesn’t match, the screen says it
+          plainly: the money is back in “Available”, nothing is lost — fix the bank details and request it again.
+        </p>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Creators connect their own accounts — by signing in to the platform</h3>
+        <p>
+          Only videos from connected accounts count. An account can be connected only through the official TikTok or
+          Instagram sign-in — so no one can pass off someone else’s popular account as their own.
+        </p>
+      </div>
+      <PhoneFlow
+        {...flow}
+        label="Connecting accounts"
+        steps={[
+          { src: s('accounts-empty'), caption: 'Why connect and what the app will see' },
+          { src: s('tiktok-signin'), caption: 'TikTok sign-in: read-only access' },
+          { src: s('choose-accounts'), caption: 'Choosing accounts that match the brand’s requirements' },
+          { src: s('approved'), caption: 'The manager approved one account and declined the other, with a reason' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          The brand sets which platforms the campaign needs, and the creator picks which of their accounts to submit.
+          One account can be in several campaigns, but not in competing ones — such an account is visible but can’t be
+          selected, with the reason shown. The final call is up to a Plutus manager: if an account isn’t approved, the
+          creator sees why and has two ways forward — confirm the account is now public, or choose another one.
+        </p>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Hashtags at the top, not buried in the brief</h3>
+        <p>Everything about a campaign in one place: fee, deadline, video plan and connected accounts with their stats.</p>
+      </div>
+      <PhoneFlow
+        {...flow}
+        label="Campaign and brief"
+        steps={[
+          { src: s('campaign'), caption: 'Campaign: fee, deadline, 29 of 30 counted' },
+          { src: s('brief'), caption: 'The brief starts with hashtags' },
+          { src: s('brief-copied'), caption: 'Five hashtags copied with one tap' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          Creators paste hashtags into TikTok by hand anyway, and a video without them doesn’t count. So hashtags come
+          first in the brief and are copied with one tap — five at once, because TikTok doesn’t allow more. The copy is
+          confirmed twice: the button changes to “Copied” and a toast appears at the bottom. Below are the must-do rules
+          for the video.
+        </p>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Errors next to the field, empty screens that explain</h3>
+        <p>
+          The brand needs audience demographics, and there’s no way to pull them automatically, so creators upload
+          screenshots of their stats.
+        </p>
+      </div>
+      <PhoneFlow
+        {...flow}
+        label="Stats upload and empty home"
+        steps={[
+          { src: s('insights'), caption: '1 of 3 uploaded — a hint says what’s missing' },
+          { src: s('insights-error'), caption: 'The error sits by its field; uploaded files stay' },
+          { src: s('home-new'), caption: 'New creator: instead of zeros — what happens next' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          If a file fails, the error appears next to its field — with the reason and a “Choose another file” button — and
+          what’s already uploaded isn’t reset. Until all three screenshots are uploaded, “Submit” is disabled and a hint
+          below says what’s missing. A new creator without campaigns doesn’t see an empty home screen: instead of zeros,
+          it explains what happens next.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Result -->
+  <section class="chapter" aria-labelledby="ch-result">
+    <div class="chapter__head"><span class="chapter__num">05</span><h2 id="ch-result">Result</h2></div>
+    <dl class="result-tiles">
+      <div><dt>-83% manual steps</dt><dd>per creator for managers</dd></div>
+      <div><dt>1 channel instead of 3</dt><dd>Google Forms, email and Slack → the app</dd></div>
+    </dl>
+    <div class="chapter__body">
+      <p>
+        The app launched on the App Store: campaigns, brief, video uploads, balance and payouts — creators handle it all
+        themselves, without Slack and without a manager.
+      </p>
+    </div>
+    <div class="cards">
+      <div><h3>💸 Money without mystery</h3><p>The wallet shows what’s available, what’s pending and why. Every block comes with a clear action: wait for views, replace the video, add bank details.</p></div>
+      <div><h3>🧩 Not just the happy path</h3><p>No bank details, a stopped campaign, delayed data, a declined account, a returned payout, a failed upload — each case has its own state, not a placeholder.</p></div>
+    </div>
+  </section>
+
+  <section class="chapter" aria-labelledby="ch-retro">
+    <div class="chapter__head"><span class="chapter__num">06</span><h2 id="ch-retro">What I’d do differently</h2></div>
+    <div class="cards">
+      <div><h3>📊 Set up metrics from the first release</h3><p>Share of videos counted on the first try and the number of payout questions to support. These numbers would show where the wallet is still unclear and help prioritise the next versions.</p></div>
+      <div><h3>⏱️ Show the counting rules earlier</h3><p>Creators see the 200-view threshold in the payout conditions — after posting. I’d move it into the brief next to the hashtags, so creators know every condition before they shoot.</p></div>
+    </div>
+  </section>
+</CaseLayout>
+
+<style>
+  /* Cover: prototype video on the left, numbers and role on the right */
+  .hero-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .hero-video {
+    margin: 0;
+    background: var(--tint);
+    border-radius: var(--r-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    overflow: hidden;
+  }
+  .hero-video video {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: min(78vh, 640px);
+    aspect-ratio: 880 / 1640;
+  }
+  .hero-split__info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .hero-split__info .keyfacts {
+    margin-bottom: 24px !important;
+  }
+  .hero-split .keyfacts.keyfacts {
+    margin: 0;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+  }
+  .hero-split .keyfacts > div {
+    padding: 24px 26px;
+  }
+  .hero-split .roles.roles {
+    margin: 0;
+    padding-top: 0;
+    border-top: 0;
+    display: block;
+  }
+  .hero-split .roles.roles > div {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 16px;
+    align-items: baseline;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .hero-split .roles.roles > div:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-split .roles.roles dt {
+    font-size: 12px;
+  }
+  .hero-split .roles.roles dd {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  /* Путь креатора: по центру блока карточек, без красного */
+  .flow--path {
+    margin: 24px 0 0 56px;
+    max-width: none;
+    justify-content: center;
+  }
+  /* Процесс работы: шаги в ряд */
+  .process {
+    margin: 40px 0 0 56px;
+  }
+  .process__title {
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+  .process__steps {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+    counter-reset: none;
+  }
+  .process__steps li {
+    position: relative;
+    padding: 18px 18px 20px;
+    background: var(--surface);
+    border-radius: var(--r-md);
+  }
+  .process__steps li:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -11px;
+    top: 22px;
+    z-index: 1;
+    width: 10px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .process__steps span {
+    display: inline-grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    font-size: 12px;
+    font-weight: 650;
+  }
+  .process__steps b {
+    display: block;
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.3;
+  }
+  .process__steps p {
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  @media (max-width: 960px) {
+    .process__steps {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .process__steps li {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      column-gap: 12px;
+      align-items: start;
+    }
+    .process__steps li > span {
+      grid-row: span 2;
+    }
+    .process__steps b {
+      margin-top: 2px;
+    }
+    .process__steps li::after {
+      display: none;
+    }
+  }
+  @media (max-width: 640px) {
+    .flow--path,
+    .process {
+      margin-left: 0;
+    }
+  }
+  @media (max-width: 760px) {
+    .hero-split {
+      grid-template-columns: 1fr;
+    }
+    .hero-video video {
+      max-height: 82vh;
+    }
+  }
+</style>

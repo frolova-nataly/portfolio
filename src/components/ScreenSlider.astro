@@ -12,6 +12,8 @@ interface Props {
   tint?: string;
 }
 const { slides, label, tint = '#F1F1EE' } = Astro.props;
+import { langFromPath, ui } from '../i18n';
+const t = ui[langFromPath(Astro.url.pathname)];
 ---
 
 <figure class="sslider" style={`--tint:${tint}`}>
@@ -29,10 +31,10 @@ const { slides, label, tint = '#F1F1EE' } = Astro.props;
     }
   </ol>
   <div class="sslider__nav">
-    <button type="button" class="sslider__btn" data-dir="-1" aria-label="Предыдущий экран" disabled>
+    <button type="button" class="sslider__btn" data-dir="-1" aria-label={t.prevScreen} disabled>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
     </button>
-    <button type="button" class="sslider__btn" data-dir="1" aria-label="Следующий экран">
+    <button type="button" class="sslider__btn" data-dir="1" aria-label={t.nextScreen}>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
     </button>
   </div>

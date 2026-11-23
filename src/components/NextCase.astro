@@ -2,7 +2,10 @@
 // «Следующий кейс» — в конце страницы кейса. Порядок берётся из cases в site.ts,
 // после последнего кейса снова идёт первый.
 import Icon from './Icon.astro';
-import { cases } from '../data/site';
+import { langFromPath, getCases, ui } from '../i18n';
+const lang = langFromPath(Astro.url.pathname);
+const cases = getCases(lang);
+const t = ui[lang];
 
 interface Props {
   current: string; // id текущего кейса из site.ts
@@ -19,10 +22,10 @@ const head = words.join(' ');
 
 {
   next && next.id !== current && (
-    <nav class="next" aria-label="Следующий кейс">
+    <nav class="next" aria-label={t.nextCase}>
       <a class="next__card" href={next.href}>
         <div class="next__text">
-          <p class="next__label">Следующий кейс</p>
+          <p class="next__label">{t.nextCase}</p>
           <p class="next__meta">
             {next.logo && <img src={next.logo} alt="" width="24" height="24" />}
             <span>{next.company}</span>

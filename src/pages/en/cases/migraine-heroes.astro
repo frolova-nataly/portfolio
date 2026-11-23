@@ -1,0 +1,393 @@
+---
+// Migraine Heroes case study, English version. Mirrors src/pages/cases/migraine-heroes.astro.
+import CaseLayout from '../../../layouts/CaseLayout.astro';
+import PhoneFlow from '../../../components/PhoneFlow.astro';
+
+const tint = '#EEF1E6';
+---
+
+<CaseLayout
+  caseId="migraine"
+  metaTitle="Migraine diary — Nataly Frolova case study"
+  metaDescription="How I designed Migraine Heroes, a mobile app for people with migraine and their specialists: attack diary, calendar and a report for the doctor."
+  company="Migraine Heroes"
+  logo="/logos/migraine.webp"
+  domain="Medtech · B2C · iOS and Android"
+  title="Migraine diary"
+  subtitle="How I designed a migraine diary app: patients log attacks and medication, and a specialist uses this data to adjust their treatment."
+>
+  <div class="case-hero hero-split">
+    <figure class="hero-video" style={`--tint:${tint}`}>
+      <video
+        src="/shots/migraine/log-demo.mp4"
+        poster="/shots/migraine/log-demo.webp"
+        width="880"
+        height="1640"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-label="Logging a day in the prototype: migraine, pain intensity and location, saving, energy, home screen with an ongoing attack"
+      ></video>
+    </figure>
+
+    <div class="hero-split__info">
+      <dl class="keyfacts">
+        <div><dt>3 instead of 10</dt><dd>-70% questions in the daily log</dd></div>
+        <div><dt>~30 sec instead of ~2 min</dt><dd>-75% time to log a day</dd></div>
+      </dl>
+
+      <dl class="roles">
+        <div><dt>Role</dt><dd>Sole designer: flows, UI, developer handoff</dd></div>
+        <div><dt>Timeline</dt><dd>9 months</dd></div>
+        <div><dt>Team</dt><dd>The brand founder as the client; my manager; developers</dd></div>
+        <div><dt>Platform</dt><dd>iOS and Android</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <section class="chapter" aria-labelledby="ch-context">
+    <div class="chapter__head"><span class="chapter__num">01</span><h2 id="ch-context">Context</h2></div>
+    <div class="chapter__body">
+      <p>
+        Migraine Heroes (formerly Nectar Health) is an app for people with migraine and the specialists who manage
+        their treatment. The patient logs attacks, medication and habits, and the specialist uses this data to adjust
+        the programme. The app doesn’t diagnose.
+      </p>
+      <p>
+        Users need two things: to quickly log how the day went, and to see whether their attacks are getting less frequent.
+      </p>
+    </div>
+  </section>
+
+  <section class="chapter" aria-labelledby="ch-task">
+    <div class="chapter__head"><span class="chapter__num">02</span><h2 id="ch-task">Goal</h2></div>
+    <div class="chapter__body">
+      <p class="lead-q">Turn an incomplete version into a cohesive app where the whole journey — from the questionnaire to daily tracking — happens in one place.</p>
+    </div>
+    <div class="cards">
+      <div><h3>✅ Daily tracker</h3><p>The main flow: log the day — was there a migraine, what kind, was medication taken.</p></div>
+      <div><h3>📅 Calendar</h3><p>See days with and without migraine, medication and the month’s trend.</p></div>
+      <div><h3>🥗 Nutrition and habits</h3><p>Menu suggestions, food categories, healthy habits — yoga, sport.</p></div>
+      <div><h3>💬 Community and support</h3><p>In-app support chat and a community of people with migraine.</p></div>
+    </div>
+  </section>
+
+  <section class="chapter" aria-labelledby="ch-limits">
+    <div class="chapter__head"><span class="chapter__num">03</span><h2 id="ch-limits">Constraints</h2></div>
+    <div class="cards cards--limit">
+      <div><h3>Not medicine</h3><p>No diagnoses and no promises of treatment — only habits and lifestyle. This shaped the wording on every screen.</p></div>
+      <div><h3>A huge questionnaire</h3><p>At sign-up, people answer dozens of medical questions. The content was fixed in advance — design was responsible for making it possible to finish.</p></div>
+      <div><h3>A user in the middle of an attack</h3><p>People often log the day while their head hurts: a long form at that moment is already a barrier.</p></div>
+      <div><h3>No direct access to users</h3><p>I had no analytics or support data. Requirements came from the brand founder as detailed briefs for each screen, and how it worked and looked in the interface was up to me.</p></div>
+    </div>
+  </section>
+
+  <section class="chapter" aria-labelledby="ch-decisions">
+    <div class="chapter__head"><span class="chapter__num">04</span><h2 id="ch-decisions">Key decisions</h2></div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>How I checked decisions against the market</h3>
+        <p>
+          I reviewed four trackers through their store listings and user reviews: how they handle the main task —
+          logging the day when your head hurts.
+        </p>
+      </div>
+      <div class="table-wrap">
+        <table class="bench bench--4">
+          <thead>
+            <tr><th scope="col">Product</th><th scope="col">What works well</th><th scope="col">Where it’s weak</th><th scope="col">What it means for me</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="bench__app"><img src="/logos/bench/migraine-buddy.png" alt="" width="24" height="24" loading="lazy" onerror="this.remove()" />Migraine Buddy</span></td>
+              <td>Logging during an attack: log now, details later. Export for the doctor</td>
+              <td>Detailed input is hard during a severe attack; long attacks are hard to log</td>
+              <td>Confirmed: a short log right away, details later; an attack can be closed retroactively</td>
+            </tr>
+            <tr>
+              <td><span class="bench__app"><img src="/logos/bench/n1-headache.png" alt="" width="24" height="24" loading="lazy" onerror="this.remove()" />N1-Headache</span></td>
+              <td>Pain-free days are logged too — without them, patterns aren’t visible</td>
+              <td>The diary takes up to 5 minutes a day across several screens</td>
+              <td>“Good day” is a separate one-tap button on the home screen</td>
+            </tr>
+            <tr>
+              <td><span class="bench__app"><img src="/logos/bench/bearable.png" alt="" width="24" height="24" loading="lazy" onerror="this.remove()" />Bearable</span></td>
+              <td>Pain scale in words, not just numbers — faster and less “clinical”</td>
+              <td>A general-purpose tracker: migraine is just one of many scenarios</td>
+              <td>A pain intensity scale with labels: meaning doesn’t rely on colour alone</td>
+            </tr>
+            <tr>
+              <td><span class="bench__app"><img src="/logos/bench/cranium.png" alt="" width="24" height="24" loading="lazy" onerror="this.remove()" />Cranium</span></td>
+              <td>An ongoing attack in two taps</td>
+              <td>No dark theme, and a bright screen hurts during a migraine</td>
+              <td>Dark theme is the next step</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>A long questionnaire people can actually finish</h3>
+        <p>
+          The questionnaire has dozens of medical questions: sex, chronic and congenital conditions, treatment. Some
+          questions depend on earlier answers: we ask about the cycle only if the person selected female. The
+          questionnaire couldn’t be shortened, so design had to keep people from abandoning it: one question per screen,
+          “Skip” at every step and no “1 of 40” counter — it only scares people with the length.
+        </p>
+        <p>Below are five questions from the questionnaire.</p>
+      </div>
+      <PhoneFlow
+        tint={tint}
+        label="Onboarding step by step"
+        steps={[
+          { src: '/shots/migraine/flow/onboarding-1.webp', caption: 'Migraine days per month' },
+          { src: '/shots/migraine/flow/onboarding-2.webp', caption: 'Age as a range' },
+          { src: '/shots/migraine/flow/onboarding-3.webp', caption: 'Pain intensity: a face and a description' },
+          { src: '/shots/migraine/flow/onboarding-4.webp', caption: 'Where it hurts' },
+          { src: '/shots/migraine/flow/onboarding-5.webp', caption: 'Preventive treatment' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          When the first migraine happened is a range of years, not an exact age: hardly anyone remembers it, so there’s
+          also “I don’t remember”. The pain scale has a face and a description of each level in words: this way people
+          rate their pain the same way from day to day, and meaning doesn’t rely on colour alone.
+        </p>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Logging a day in four taps</h3>
+        <p>Two actions on the home screen: “Good day” is one tap, “Migraine” is a log on a single screen.</p>
+      </div>
+      <PhoneFlow
+        tint={tint}
+        label="Logging a day step by step"
+        steps={[
+          { src: '/shots/migraine/flow/log-1.webp', caption: 'Home: “Good day” or “Migraine”' },
+          { src: '/shots/migraine/flow/log-2.webp', caption: 'Pain intensity and location on one screen' },
+          { src: '/shots/migraine/flow/log-3.webp', caption: 'Day saved, details are optional' },
+          { src: '/shots/migraine/flow/log-4.webp', caption: 'Energy sheet: saves when you let go' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          Previously you had to remember what each icon meant, and “took medication” got mixed up with “had a migraine”.
+          Now “Good day” is logged with one tap, and if you mis-tap, you can undo right in the toast. “Migraine” opens the
+          log straight away: pain intensity and location on one screen, then “Save”. If an attack is ongoing, the home
+          screen shows how long it has lasted and an “It’s over” button.
+        </p>
+        <p>
+          Once saved, the day already counts. Medication, energy, cycle and digestion are optional “for the doctor”
+          rows: each opens its own sheet, and simple answers save instantly, without a “Next” button. This is for days
+          when there’s no energy to fill everything in during an attack.
+        </p>
+      </div>
+      <dl class="hypo hypo--test">
+        <div class="hypo__lead"><dt>Hypothesis</dt><dd>If the log fits on one screen and the day counts right after saving, people will log even the hard days — and the calendar will be more honest.</dd></div>
+        <div>
+          <dt>How I tested it</dt>
+          <dd>
+            <div class="people" role="img" aria-label="7 participants, 4 of them with migraine">
+              {Array.from({ length: 7 }, (_, i) => (
+                <svg class={i < 4 ? 'person is-migraine' : 'person'} viewBox="0 0 20 28" aria-hidden="true">
+                  <circle cx="10" cy="6" r="5" />
+                  <path d="M1 27v-5.5C1 16.8 4.8 13 9.5 13h1c4.7 0 8.5 3.8 8.5 8.5V27z" />
+                </svg>
+              ))}
+            </div>
+            <p class="people__legend"><span class="dot is-migraine"></span>4 with migraine <span class="dot"></span>3 without</p>
+            <p>All seven went through the old and the new flow on a prototype and chose the new one. They didn’t get lost in the old one, but the new one is quick, works in any situation and takes no effort.</p>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Forgot to log the end of an attack — the app will ask</h3>
+        <p>While an attack is ongoing, the app gently reminds you, and in the morning it asks when it ended.</p>
+      </div>
+      <PhoneFlow
+        tint={tint}
+        label="Closing an attack step by step"
+        steps={[
+          { src: '/shots/migraine/flow/attack-end-1.webp', caption: 'Reminder on the lock screen' },
+          { src: '/shots/migraine/flow/attack-end-2.webp', caption: 'In the morning: when did the migraine end' },
+          { src: '/shots/migraine/flow/attack-end-3.webp', caption: '“Still going” — the timer continues' },
+          { src: '/shots/migraine/flow/attack-end-4.webp', caption: 'Home screen during an attack' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          The reminder comes every few hours — on the lock screen, with no details, just “Time to check in”. If the attack
+          was never closed, in the morning the home screen opens a “When did the migraine end?” sheet: “Last night” and
+          “This morning” with a time picker, or “Still going” — then the timer keeps running. Without this, attack
+          durations in the data would be wrong.
+        </p>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>A calendar that reads without colour, and data you can show your doctor</h3>
+        <p>Migraine, medication and missed days differ by shape, not just colour. The doctor report is built from what the person logged themselves.</p>
+      </div>
+      <PhoneFlow
+        tint={tint}
+        label="Calendar, reminders and doctor report"
+        steps={[
+          { src: '/shots/migraine/flow/calendar-1.webp', caption: 'Month: fill, dots, legend' },
+          { src: '/shots/migraine/flow/calendar-2.webp', caption: 'Any day can be edited in a sheet' },
+          { src: '/shots/migraine/flow/calendar-3.webp', caption: 'Reminders and quiet hours' },
+          { src: '/shots/migraine/flow/calendar-4.webp', caption: 'Report for 30, 60 or 90 days — no conclusions' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          In the calendar, migraine is a fill, medication is a dot under the day, an unlogged day is a dashed outline,
+          and today is a square. The legend has only three items: an empty day and today are clear without a label. Any
+          day can be opened and edited in a sheet. Reminders have quiet hours and a mode where the notification doesn’t
+          reveal what it’s about.
+        </p>
+        <p>
+          The report for 30, 60 or 90 days shows migraine days, average intensity and medication. No conclusions or diagnoses.
+        </p>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Nutrition, community and an AI coach — around the diary</h3>
+        <p>Sections for days without an attack — and each one remembers that the app doesn’t replace a doctor.</p>
+      </div>
+      <PhoneFlow
+        tint={tint}
+        label="Other sections of the app"
+        steps={[
+          { src: '/shots/migraine/flow/sections-1.webp', caption: 'Nutrition' },
+          { src: '/shots/migraine/flow/sections-2.webp', caption: 'Step-by-step recipe' },
+          { src: '/shots/migraine/flow/sections-3.webp', caption: 'Community' },
+          { src: '/shots/migraine/flow/sections-4.webp', caption: 'AI coach' },
+          { src: '/shots/migraine/flow/sections-5.webp', caption: 'Profile' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          A recipe opens with a full-screen photo, and the steps are a numbered list so you don’t lose your place while
+          cooking. In the community people share their experience, so the feed has a quiet note that members’ advice
+          isn’t medical advice, and likes and comments have a 44&nbsp;pt tap area. The AI coach answers right away and can
+          use entries from the diary, and if a real specialist is needed, they can be brought in from the chat.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Result -->
+  <section class="chapter" aria-labelledby="ch-result">
+    <div class="chapter__head"><span class="chapter__num">05</span><h2 id="ch-result">Result</h2></div>
+    <dl class="result-tiles">
+      <div><dt>3 instead of 10 questions</dt><dd>-70% required fields in the daily log</dd></div>
+      <div><dt>~30 sec instead of ~2 min</dt><dd>-75% time to log a day</dd></div>
+    </dl>
+    <div class="chapter__body">
+      <p>Everything I designed went into the app. The decisions the experience rests on:</p>
+      <ul>
+        <li><b>The questionnaire inside the app.</b> I moved it from a third-party service into onboarding: one entry point instead of a gap between two products.</li>
+        <li><b>The calendar on the home screen.</b> The month with “migraine”, “no migraine” and “medication” days right on the home screen — to see whether attacks are getting less frequent.</li>
+        <li><b>Quick daily logging.</b> Two buttons instead of a long form — and a report you can show your doctor without extra explanations.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="chapter" aria-labelledby="ch-retro">
+    <div class="chapter__head"><span class="chapter__num">06</span><h2 id="ch-retro">What I’d do differently</h2></div>
+    <div class="cards">
+      <div><h3>Talk to patients directly</h3><p>The founder knows the audience well, but 3–5 interviews with patients themselves would show what state a person is in when they open the app during an attack — not just from her words.</p></div>
+      <div><h3>Test home screen variants</h3><p>Before release — a usability test of 2–3 day-logging variants; after release — an A/B test of the home screen on real users.</p></div>
+    </div>
+  </section>
+</CaseLayout>
+
+<style>
+  /* Cover: prototype video on the left, numbers and role on the right */
+  .hero-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .hero-video {
+    margin: 0;
+    background: var(--tint);
+    border-radius: var(--r-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    overflow: hidden;
+  }
+  .hero-video video {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: min(78vh, 640px);
+    aspect-ratio: 880 / 1640;
+  }
+  .hero-split__info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .hero-split__info .keyfacts {
+    margin-bottom: 24px !important;
+  }
+  .hero-split .keyfacts.keyfacts {
+    margin: 0;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+  }
+  .hero-split .keyfacts > div {
+    padding: 24px 26px;
+  }
+  .hero-split .roles.roles {
+    margin: 0;
+    padding-top: 0;
+    border-top: 0;
+    display: block;
+  }
+  .hero-split .roles.roles > div {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 16px;
+    align-items: baseline;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .hero-split .roles.roles > div:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-split .roles.roles dt {
+    font-size: 12px;
+  }
+  .hero-split .roles.roles dd {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  @media (max-width: 760px) {
+    .hero-split {
+      grid-template-columns: 1fr;
+    }
+    .hero-video video {
+      max-height: 82vh;
+    }
+  }
+</style>

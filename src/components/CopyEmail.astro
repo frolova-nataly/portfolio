@@ -2,12 +2,14 @@
 // Кнопка «Почта»: копирует адрес, без JS работает как обычная mailto-ссылка.
 import Icon from './Icon.astro';
 import { site } from '../data/site';
+import { langFromPath, ui } from '../i18n';
 
 interface Props {
   variant?: 'link' | 'button';
   label?: string;
 }
-const { variant = 'link', label = 'Почта' } = Astro.props;
+const t = ui[langFromPath(Astro.url.pathname)];
+const { variant = 'link', label = t.email } = Astro.props;
 const email = site.contacts.email;
 ---
 
@@ -15,11 +17,12 @@ const email = site.contacts.email;
   href={`mailto:${email}`}
   class:list={['copy-email', variant === 'button' ? 'btn btn--secondary' : 'nav-link']}
   data-email={email}
-  aria-label={`${label}: ${email}. Нажмите, чтобы скопировать`}
+  data-copied={t.copiedLive(email)}
+  aria-label={`${label}: ${email}. ${t.copyHint}`}
 >
   {variant === 'button' && <Icon name="mail" />}
   <span class="copy-email__text">{label}</span>
-  <span class="copy-email__done" aria-hidden="true">Скопировано</span>
+  <span class="copy-email__done" aria-hidden="true">{t.copied}</span>
   <span class="visually-hidden" role="status" aria-live="polite"></span>
 </a>
 
@@ -72,7 +75,7 @@ const email = site.contacts.email;
       const showCopied = () => {
         el.classList.add('is-copied');
         const live = el.querySelector('[role="status"]');
-        if (live) live.textContent = `Адрес ${email} скопирован`;
+        if (live) live.textContent = el.dataset.copied ?? email;
         setTimeout(() => {
           el.classList.remove('is-copied');
           if (live) live.textContent = '';

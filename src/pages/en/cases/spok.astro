@@ -1,0 +1,508 @@
+---
+// Spok / NZVC case study, English version. Mirrors src/pages/cases/spok.astro.
+import CaseLayout from '../../../layouts/CaseLayout.astro';
+import Shot from '../../../components/Shot.astro';
+import ScreenSlider from '../../../components/ScreenSlider.astro';
+
+const tint = '#E9F0FC';
+---
+
+<CaseLayout
+  caseId="nzvc"
+  metaTitle="CRM for a venture fund — Nataly Frolova case study"
+  metaDescription="How I designed Spok from scratch — the workspace of the NZVC venture fund: deals, investors, capital calls and fund finances in one tool."
+  company="NZVC · Spok"
+  logo="/logos/nzvc.webp"
+  domain="Fintech · B2B · Web"
+  title="CRM for a venture fund"
+  subtitle="How I designed the fund’s workspace from scratch — from the first contact with a company to a capital call and reporting to investors."
+>
+  <div class="case-hero">
+    <figure class="hero-video" style={`--tint:${tint}`}>
+      <video
+        src="/shots/spok/capital-call-demo.mp4"
+        width="2160"
+        height="1536"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-label="Capital call in the prototype: selecting six LPs, 15% for everyone at once, payment method, email preview and sending"
+      ></video>
+    </figure>
+  </div>
+
+  <dl class="keyfacts keyfacts--accent">
+    <div><dt>~10 minutes instead of ~100 per round</dt><dd>-90% time per capital call</dd></div>
+    <div><dt>Excel, Google Docs, email and Google Drive — in one tool</dt><dd>4 tools → 1</dd></div>
+  </dl>
+
+  <dl class="roles">
+    <div>
+      <dt>Role</dt>
+      <dd>Sole designer: benchmarking, architecture, flows, UI, developer handoff</dd>
+    </div>
+    <div>
+      <dt>Timeline</dt>
+      <dd>≈ 1 year from a blank page to production, since 2023</dd>
+    </div>
+    <div>
+      <dt>Team</dt>
+      <dd>The founder — main user and client; other fund GPs — occasional feedback; developers</dd>
+    </div>
+    <div>
+      <dt>Platform</dt>
+      <dd>Web, desktop</dd>
+    </div>
+  </dl>
+
+  <!-- 1. Context -->
+  <section class="chapter" aria-labelledby="ch-context">
+    <div class="chapter__head"><span class="chapter__num">01</span><h2 id="ch-context">Context</h2></div>
+    <div class="chapter__body">
+      <p>
+        NZVC is a venture capital fund from New Zealand. The fund does two jobs in parallel: finding companies to invest
+        in and managing relationships with the investors (LPs) who gave the fund their money.
+      </p>
+      <p>
+        Before Spok, all of this was scattered: some in email, some in spreadsheets, some in the founder’s head. The
+        company decided to bring the whole cycle into one tool.
+      </p>
+      <p>
+        The users are managing partners and the investment team. Three things matter to them: <b>speed</b> between
+        calls, <b>a single source of truth</b> instead of five versions in chats, and <b>delegation</b> — a task from a
+        call should reach the right person straight away.
+      </p>
+    </div>
+  </section>
+
+  <!-- 2. Goal -->
+  <section class="chapter" aria-labelledby="ch-task">
+    <div class="chapter__head"><span class="chapter__num">02</span><h2 id="ch-task">Goal</h2></div>
+    <div class="chapter__body">
+      <p class="lead-q">
+        Build not a task tracker but a workspace for the fund’s whole cycle. Behind “put everything in one place” were
+        four pains.
+      </p>
+    </div>
+    <div class="cards">
+      <div><h3>🧭 Unclear where a deal stands</h3><p>A company on the radar, a call already held, still thinking or declined — the status had to be remembered.</p></div>
+      <div><h3>💸 Manual capital calls</h3><p>Money requests went out as emails with no template, and documents sat in hundreds of Google Drive folders.</p></div>
+      <div><h3>🗂 Scattered context</h3><p>Files, emails and statuses in different places: to recall a deal, you had to dig through email and chats.</p></div>
+      <div><h3>📊 No report for LPs</h3><p>How much was called, invested and left — all compiled from spreadsheets by hand.</p></div>
+    </div>
+  </section>
+
+  <!-- 3. Constraints -->
+  <section class="chapter" aria-labelledby="ch-limits">
+    <div class="chapter__head"><span class="chapter__num">03</span><h2 id="ch-limits">Constraints</h2></div>
+    <div class="cards cards--limit">
+      <div>
+        <h3>One designer for a big product</h3>
+        <p>Dozens of screens, heavy tables, forms that calculate the amount for each investor separately.</p>
+      </div>
+      <div>
+        <h3>A complex domain</h3>
+        <p>
+          An investor doesn’t transfer money at once: they commit to an amount (commitment), and the fund calls it in
+          tranches, sometimes over years. A mistake in a capital call means asking a real person for the wrong amount of
+          real money.
+        </p>
+      </div>
+      <div>
+        <h3>The user is the founder</h3>
+        <p>
+          There was no separate research: requirements and feedback came from the founder, who is also the main user. So
+          I tested decisions against his daily work, and other products’ patterns against our data.
+        </p>
+      </div>
+      <div>
+        <h3>Investors from different countries</h3>
+        <p>
+          LPs are both individuals and companies from different countries. They pay to a bank account or in crypto, and
+          each one must get a notice with their own amount, deadline and payment details.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Decisions -->
+  <section class="chapter" aria-labelledby="ch-decisions">
+    <div class="chapter__head"><span class="chapter__num">04</span><h2 id="ch-decisions">Key decisions</h2></div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>How I checked decisions against the market</h3>
+        <p>
+          There’s no off-the-shelf product for a venture fund. I broke down large B2B CRMs into patterns and took only
+          the ones that solved our pains.
+        </p>
+      </div>
+      <div class="table-wrap">
+        <table class="bench">
+          <thead>
+            <tr><th scope="col">Product</th><th scope="col">What I took</th><th scope="col">Why it didn’t fit as a whole</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="bench__app"><img src="/logos/bench/hubspot.png" alt="" width="24" height="24" loading="lazy" /><a href="https://www.hubspot.com" target="_blank" rel="noopener">HubSpot</a></span></td>
+              <td>Tabs inside a record without reloading — used in company and LP profiles: email, files, rounds and notes without losing context</td>
+              <td>Overloaded with marketing, heavy onboarding for a small team</td>
+            </tr>
+            <tr>
+              <td><span class="bench__app"><img src="/logos/bench/monday.png" alt="" width="24" height="24" loading="lazy" /><a href="https://monday.com" target="_blank" rel="noopener">monday.com</a></span></td>
+              <td>Lead Score — adapted into Connection Strength: how “warm” the contact with a founder is</td>
+              <td>A generic tracker: fintech logic like tranches can’t be built in it</td>
+            </tr>
+            <tr>
+              <td><span class="bench__app"><img src="/logos/bench/salesforce.png" alt="" width="24" height="24" loading="lazy" /><a href="https://www.salesforce.com" target="_blank" rel="noopener">Salesforce</a></span></td>
+              <td>The approach to pipelines and reports</td>
+              <td>Heavy interface; LP — fund — startup relationships need an integrator</td>
+            </tr>
+            <tr>
+              <td><span class="bench__app"><img src="/logos/bench/zoho.png" alt="" width="24" height="24" loading="lazy" /><a href="https://www.zoho.com/crm/" target="_blank" rel="noopener">Zoho CRM</a></span></td>
+              <td>Clear movement of deals through pipeline stages</td>
+              <td>Dated UI and a rigid data structure</td>
+            </tr>
+            <tr>
+              <td><span class="bench__app"><img src="/logos/bench/zendesk.png" alt="" width="24" height="24" loading="lazy" /><a href="https://www.zendesk.com" target="_blank" rel="noopener">Zendesk</a></span></td>
+              <td>A timeline of interactions and emails — the basis of a deal’s history</td>
+              <td>Built for customer support, not for long financial deals</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Architecture: two jobs of the fund — two areas</h3>
+        <p>
+          Modules are grouped not by data type but by the job the team does: finding and managing deals, or handling
+          investors’ money. Links between the areas run through: one record lives in every place it’s needed.
+        </p>
+      </div>
+      <div class="arch">
+        <div class="arch__zone">
+          <p class="arch__label">Area 1 · Deals</p>
+          <h4>Find a company and keep in touch</h4>
+          <ul>
+            <li><b>Home</b><span>what needs attention today</span></li>
+            <li><b>Companies</b><span>pipeline, portfolio, company profile</span></li>
+            <li><b>Tasks</b><span>list and kanban, tasks from calls</span></li>
+            <li><b>Contacts</b><span>profile, guest access, view analytics</span></li>
+          </ul>
+        </div>
+        <div class="arch__zone arch__zone--money">
+          <p class="arch__label">Area 2 · Investors’ money</p>
+          <h4>Call capital and report to LPs</h4>
+          <ul>
+            <li><b>Investors (LPs)</b><span>LP list and profile</span></li>
+            <li><b>Capital calls</b><span>history and a new capital call</span></li>
+            <li><b>Fund finances</b><span>called and remaining, fees, expenses</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="arch__flow">
+        <p class="arch__label">How data flows through the area</p>
+        <ol class="flow">
+          <li>LP list</li><li class="arrow" aria-hidden="true">→</li>
+          <li>Capital call</li><li class="arrow" aria-hidden="true">→</li>
+          <li>LP profile: Sent / Paid status</li><li class="arrow" aria-hidden="true">→</li>
+          <li>Fund finances: called and remaining</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Home is not a feed but a list of what needs attention</h3>
+        <p>
+          Instead of an activity feed — what needs to be done now: an open capital call with the amount to collect,
+          overdue tasks, companies with no contact for 30+ days and today’s meetings.
+        </p>
+      </div>
+      <dl class="hypo">
+        <div><dt>Why</dt><dd>So a cooling deal is visible before the contact is lost.</dd></div>
+        <div><dt>In practice</dt><dd>The block stayed in the team’s daily routine — it wasn’t removed or simplified.</dd></div>
+      </dl>
+      <Shot full phones tint={tint} src="/shots/spok/home.webp" alt="Spok home: key fund numbers, capital call, tasks, companies without contact, meetings and the AI assistant" caption="Key fund numbers at the top, below — what needs action today." />
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>One pattern for the company profile and the LP profile</h3>
+        <p>
+          The header, key facts, activity feed with notes and files work the same way: the team follows one flow instead
+          of learning two interfaces. A note can be added right from the feed — the input comes first in the activity
+          block. On the right of the LP profile — their capital call history and the contacts that receive notices.
+        </p>
+      </div>
+      <dl class="hypo">
+        <div><dt>Why</dt><dd>So nobody has to learn two interfaces for the same job.</dd></div>
+        <div><dt>In practice</dt><dd>After getting used to the LP profile, the founder didn’t need the company profile explained.</dd></div>
+      </dl>
+      <Shot full phones tint={tint} src="/shots/spok/company.webp" alt="ArchiPro company profile: header with key facts, activity feed with a note field, and files" caption="Company profile: facts, activity feed, files." />
+      <div class="stack-gap"></div>
+      <Shot full phones tint={tint} src="/shots/spok/lp.webp" alt="Investor profile: header, details, activity feed, capital call history and notice contacts" caption="Investor profile: the same structure, with their capital calls and notice contacts on the right." />
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>A capital call in four steps, with a check before sending</h3>
+        <p>
+          Here logic matters more than the interface: how much has already been called from each investor, how much is
+          left and exactly what they’ll receive in the email. A capital call starts from the LP list: select the investors
+          and click “New capital call”.
+        </p>
+      </div>
+      <div class="table-wrap">
+        <table class="bench bench--4 cc-table">
+          <thead>
+            <tr><th scope="col">Step</th><th scope="col">What the manager does</th><th scope="col">What Spok does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1. Recipients</td><td>Checks who will get the email, edits contacts if needed</td><td>Fills in the selected LPs, their email and CC</td></tr>
+            <tr><td>2. Amount</td><td>Enters % or NZ$ once — for everyone at once</td><td>Calculates each amount and won’t let it exceed the remaining commitment</td></tr>
+            <tr><td>3. Payment method</td><td>“Apply to all”, exceptions edited inline</td><td>Remembers the account: next time it’s filled in automatically</td></tr>
+            <tr><td>4. Email and sending</td><td>Previews the email for each LP and sends</td><td>Generates a PDF notice for each LP and sets the status to Sent</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ScreenSlider
+        tint={tint}
+        label="Capital call step by step"
+        slides={[
+          { src: '/shots/spok/cc/cc-1.webp', caption: 'Selecting investors right from the LP list' },
+          { src: '/shots/spok/cc/cc-2.webp', caption: 'Recipients: who gets the email' },
+          { src: '/shots/spok/cc/cc-3.webp', caption: 'Amount in % — for everyone at once, with the remaining commitment' },
+          { src: '/shots/spok/cc/cc-4.webp', caption: 'Bank or crypto wallet: “Apply to all” and inline edits' },
+          { src: '/shots/spok/cc/cc-5.webp', caption: 'Email preview for each LP before sending' },
+          { src: '/shots/spok/cc/cc-6.webp', caption: 'The new call in history with a status for each LP' },
+        ]}
+      />
+      <div class="decision__body">
+        <p>
+          The bar under each investor shows how much was called before and how much is being called now — the amount
+          can’t exceed the remaining commitment. The payment method is chosen once for everyone, exceptions are edited
+          inline, and next time it’s filled in automatically. A PDF notice for each LP is generated automatically.
+        </p>
+        <p>
+          Sending doesn’t happen right away but through a preview: a specific investor’s email with their amount,
+          deadline and account. Where real money is at stake, an extra step is cheaper than a mistake.
+        </p>
+      </div>
+      <div class="compare">
+        <div>
+          <span class="badge">Before</span>
+          <p>Documents in hundreds of Google Drive folders, sent capital calls in email. How much had been called from whom was pieced together from emails.</p>
+        </div>
+        <div>
+          <span class="badge badge--new">After</span>
+          <p>All capital calls in one list with statuses. For each LP you can see how much was called and how much is left, and the documents live in their profile.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <h3>Fund finances — where the money went</h3>
+        <p>
+          One screen answers an investor’s main question: fund size, how much is called, how much is left to call and how
+          much is in the account. Below — investments by quarter and a breakdown of called capital: investments,
+          management fee, expenses and the account balance.
+        </p>
+      </div>
+      <dl class="hypo">
+        <div><dt>Why</dt><dd>So the LP report is built from data, not compiled from spreadsheets by hand.</dd></div>
+      </dl>
+      <Shot full phones tint={tint} src="/shots/spok/fund-overview.webp" alt="Fund finances: fund size, called and uncalled capital, investments by quarter and a breakdown of called capital" caption="Four numbers at the top, investments by quarter, where the called capital went." />
+    </div>
+
+    <div class="decision">
+      <div class="decision__head">
+        <span class="badge badge--new">New</span>
+        <h3>An AI layer on top of the data</h3>
+        <p>
+          The assistant on the home screen answers from the fund’s data: a company summary, companies that are “cooling
+          down”, a draft email to investors. Note Taker prepares a note during a call — all that’s left is to accept or
+          edit it.
+        </p>
+      </div>
+      <dl class="hypo">
+        <div><dt>Hypothesis</dt><dd>An automatic summary of documents and calls will shorten preparation for a deal discussion.</dd></div>
+        <div><dt>How I’d test it</dt><dd>Time from opening a company record to a ready call note; share of notes accepted without edits.</dd></div>
+      </dl>
+      <Shot full phones tint={tint} src="/shots/spok/ai-layer.webp" alt="The AI assistant prepares for a call with Bluewave: summary, a red flag and sources; Note Taker after the call — a summary and tasks with owners" caption="Left — call prep from documents and notes; right — the note after the call, with tasks for the team." />
+    </div>
+  </section>
+
+  <!-- 5. Result -->
+  <section class="chapter" aria-labelledby="ch-result">
+    <div class="chapter__head"><span class="chapter__num">05</span><h2 id="ch-result">Result</h2></div>
+    <dl class="result-tiles">
+      <div><dt>~10&nbsp;minutes instead of ~100 per round</dt><dd>-90% time per capital call</dd></div>
+      <div><dt>4 tools → 1</dt><dd>Spok replaced Excel, Google Docs, email and Google Drive</dd></div>
+    </dl>
+    <div class="chapter__body">
+      <p>Spok is in production: the fund runs all its operations in it — 49 LPs, 53 companies and 500+ contacts with the history of calls, files and statuses in one place.</p>
+      <div class="callout callout--honest">
+        <p>
+          A capital call for 5 investors: it used to take ~100 minutes of manual work in Excel, Google Docs and email,
+          for each investor separately. Now it’s ~10 minutes for the whole round in one flow with auto-generated
+          documents — an estimate based on the flow; the fund didn’t keep exact measurements.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. What I'd do differently -->
+  <section class="chapter" aria-labelledby="ch-retro">
+    <div class="chapter__head"><span class="chapter__num">06</span><h2 id="ch-retro">What I’d do differently</h2></div>
+    <div class="cards">
+      <div>
+        <h3>Measure the impact from the first release</h3>
+        <p>I’d add analytics events to the capital call: time from selecting LPs to sending, and the number of edits after the preview. Then −90% would be a number from the product, not an estimate based on the flow.</p>
+      </div>
+      <div>
+        <h3>Involve the fund’s back office</h3>
+        <p>Capital calls aren’t prepared by the founder alone. Before the amount calculation was built, I’d run 3–5 prototype sessions with the investment team and the fund’s finance people.</p>
+      </div>
+      <div>
+        <h3>Keep a decision log in Figma</h3>
+        <p>Every decision next to the mockup: why it’s this way and which options were dropped. A new developer understands the logic without a call with the founder.</p>
+      </div>
+      <div>
+        <h3>Next step — an LP portal</h3>
+        <p>Investors see their own capital calls, documents and payment status. Fewer “how much have I paid in?” emails and manual exports for reports.</p>
+      </div>
+    </div>
+  </section>
+</CaseLayout>
+
+<style>
+  .hero-video {
+    margin: 0;
+    width: min(1280px, calc(100vw - 48px));
+    margin-inline: calc((min(1280px, calc(100vw - 48px)) - 100%) / -2);
+    background: var(--tint);
+    border-radius: 20px;
+    padding: clamp(12px, 3vw, 40px);
+    overflow: hidden;
+  }
+  .hero-video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2160 / 1536;
+    border-radius: 10px;
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.06),
+      0 12px 40px rgb(0 0 0 / 0.08);
+  }
+  .decision .hypo {
+    margin-top: 24px;
+  }
+  /* Заголовок в две строки, описание прижато к верху */
+  :global(.intro .intro__head.intro__head) {
+    align-items: start;
+  }
+  :global(.intro .intro__title.intro__title) {
+    font-size: clamp(34px, 4.2vw, 52px);
+  }
+  :global(.intro .intro__sub.intro__sub) {
+    margin-top: 8px;
+  }
+  /* Экраны во всю ширину окна */
+  :global(.shot--full .is-phones img) {
+    max-width: 1440px;
+  }
+  /* Подпись под экраном во всю ширину — по колонке текста */
+  :global(.shot--full figcaption) {
+    padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2));
+  }
+  .decision .hypo + :global(.shot) {
+    margin-top: 32px;
+  }
+  .stack-gap {
+    height: 16px;
+  }
+  .cc-table td:first-child {
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  /* Архитектура: два контура и поток данных */
+  .arch {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .arch__zone {
+    padding: 24px 26px;
+    border-radius: var(--r-md);
+    background: var(--surface);
+  }
+  .arch__zone--money {
+    background: #e9f0fc;
+  }
+  .arch__label {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .arch h4 {
+    margin: 8px 0 16px;
+    font-size: 20px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .arch ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .arch li {
+    display: grid;
+    grid-template-columns: 132px minmax(0, 1fr);
+    gap: 12px;
+    padding: 10px 0;
+    border-top: 1px solid rgb(0 0 0 / 0.07);
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  .arch li span {
+    color: var(--ink-2);
+  }
+  .arch__flow {
+    margin-top: 12px;
+    padding: 20px 26px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line);
+  }
+  .arch__flow .flow {
+    margin: 12px 0 0;
+    max-width: none;
+  }
+  @media (max-width: 760px) {
+    .arch {
+      grid-template-columns: 1fr;
+    }
+    .arch li {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+  @media (max-width: 640px) {
+    .hero-video {
+      width: calc(100vw - 24px);
+      margin-inline: calc((100vw - 24px - 100%) / -2);
+      border-radius: 14px;
+    }
+  }
+</style>

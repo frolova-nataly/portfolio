@@ -1,36 +1,43 @@
 ---
 import '../styles/global.css';
-import { site } from '../data/site';
+import { langFromPath, altPath, getSite, ui } from '../i18n';
 
 interface Props {
   title?: string;
   description?: string;
 }
+const lang = langFromPath(Astro.url.pathname);
+const site = getSite(lang);
 const { title = site.meta.title, description = site.meta.description } = Astro.props;
-const ogImage = new URL(site.meta.ogImage, site.url).href;
+const origin = 'https://forlova.vercel.app';
+const ogImage = new URL(site.meta.ogImage, origin).href;
+const canonical = new URL(Astro.url.pathname, origin).href;
+const alternate = new URL(altPath(Astro.url.pathname), origin).href;
 ---
 
 <!doctype html>
-<html lang="ru">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.png" type="image/png" />
-    <link rel="canonical" href={site.url} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={lang} href={canonical} />
+    <link rel="alternate" hreflang={lang === 'en' ? 'ru' : 'en'} href={alternate} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'ru_RU'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={site.url} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#ffffff" />
   </head>
   <body>
-    <a class="skip-link" href="#main">К содержанию</a>
+    <a class="skip-link" href="#main">{ui[lang].skip}</a>
     <slot />
   </body>
 </html>
