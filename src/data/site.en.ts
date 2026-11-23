@@ -21,11 +21,11 @@ export const siteEn = {
     cv: '/cv-en.pdf',
   },
   hero: {
-    status: 'Looking for a product team',
+    status: 'Looking for my next team',
     lead:
       'I design dashboards, CRMs and mobile apps. I’ve worked with teams from New Zealand, the US and the UK. In UX/UI since 2023, in design since 2019.',
     tags: ['Fintech', 'Medtech', 'AdTech', 'SaaS', 'Mobile'],
-    languages: ['English B2'],
+    languages: ['English B2', 'Open to relocation'],
   },
   cta: {
     title: 'This is usually where it says “let’s work together.”',
