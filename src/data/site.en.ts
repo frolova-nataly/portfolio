@@ -11,7 +11,7 @@ export const siteEn = {
     title: 'Nataly Frolova — UX/UI Designer',
     description:
       'Dashboards, CRMs and mobile apps for fintech and medtech. Case studies: NZVC, Migraine Heroes, Plutus Media.',
-    ogImage: '/og.png',
+    ogImage: '/og-en.png',
   },
   contacts: {
     email: 'deardeer0@yandex.ru',

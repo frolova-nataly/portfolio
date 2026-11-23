@@ -11,7 +11,7 @@ export const site = {
     title: 'Наталья Фролова — UX/UI дизайнер',
     description:
       'Дашборды, CRM и мобильные приложения для финтеха и медтеха. Кейсы NZVC, Migraine Heroes, Plutus Media.',
-    ogImage: '/og.png',
+    ogImage: '/og-ru.png',
   },
   contacts: {
     email: 'deardeer0@yandex.ru',
