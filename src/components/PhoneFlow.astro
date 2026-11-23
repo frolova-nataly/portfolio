@@ -10,16 +10,20 @@ interface Props {
   tint?: string;
   mobileOnly?: boolean; // показывать только на телефоне (например, обложка-карусель)
   noCaptions?: boolean;
+  imgWidth?: number; // размер исходников экранов
+  imgHeight?: number;
 }
-const { steps, label, tint = '#F1F1EE', mobileOnly = false, noCaptions = false } = Astro.props;
+const { steps, label, tint = '#F1F1EE', mobileOnly = false, noCaptions = false, imgWidth = 1080, imgHeight = 2208 } = Astro.props;
+// Тёмная подложка (Plutus) — подписи светлые
+const dark = /^#([0-3])/.test(tint);
 ---
 
-<figure class:list={['pflow', mobileOnly && 'pflow--mobile-only']} style={`--tint:${tint}; --n:${steps.length}`}>
+<figure class:list={['pflow', mobileOnly && 'pflow--mobile-only', dark && 'pflow--dark']} style={`--tint:${tint}; --n:${steps.length}`}>
   <ol class="pflow__track" aria-label={label} tabindex="0">
     {
       steps.map((s, i) => (
         <li class="pflow__step">
-          <img src={s.src} alt={s.caption} width="1080" height="2208" loading="lazy" decoding="async" />
+          <img src={s.src} alt={s.caption} width={imgWidth} height={imgHeight} loading="lazy" decoding="async" />
           {!noCaptions && (
             <p>
               <span>{i + 1}</span>
@@ -44,7 +48,8 @@ const { steps, label, tint = '#F1F1EE', mobileOnly = false, noCaptions = false }
     list-style: none;
     margin: 0 auto;
     padding: clamp(40px, 5vw, 88px) clamp(24px, 4vw, 64px);
-    max-width: 1760px;
+    /* мало экранов — ряд уже, чтобы телефоны не разъезжались */
+    max-width: min(1760px, calc(var(--n) * 400px + 128px));
     display: grid;
     grid-template-columns: repeat(var(--n), minmax(0, 1fr));
     gap: clamp(16px, 2.4vw, 48px);
@@ -84,6 +89,13 @@ const { steps, label, tint = '#F1F1EE', mobileOnly = false, noCaptions = false }
     font-size: 12px;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
+  }
+  .pflow--dark .pflow__step p {
+    color: rgba(255, 255, 255, 0.74);
+  }
+  .pflow--dark .pflow__step p span {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
   }
   .pflow--mobile-only {
     display: none;
