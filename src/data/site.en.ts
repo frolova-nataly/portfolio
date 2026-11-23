@@ -3,10 +3,10 @@ import type { Case } from './site';
 
 export const siteEn = {
   name: 'Nataly Frolova',
-  logo: 'forlova',
+  logo: 'frolova',
   role: 'UX/UI Designer · B2B & B2C',
   avatar: '/avatar.jpg',
-  url: 'https://forlova.vercel.app/en/',
+  url: 'https://frolova.vercel.app/en/',
   meta: {
     title: 'Nataly Frolova — UX/UI Designer',
     description:

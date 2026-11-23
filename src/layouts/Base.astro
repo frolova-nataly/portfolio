@@ -9,7 +9,7 @@ interface Props {
 const lang = langFromPath(Astro.url.pathname);
 const site = getSite(lang);
 const { title = site.meta.title, description = site.meta.description } = Astro.props;
-const origin = 'https://forlova.vercel.app';
+const origin = 'https://frolova.vercel.app';
 const ogImage = new URL(site.meta.ogImage, origin).href;
 const canonical = new URL(Astro.url.pathname, origin).href;
 const alternate = new URL(altPath(Astro.url.pathname), origin).href;

@@ -3,10 +3,10 @@
 
 export const site = {
   name: 'Наталья Фролова',
-  logo: 'forlova',
+  logo: 'frolova',
   role: 'UX/UI дизайнер · B2B и B2C',
   avatar: '/avatar.jpg',
-  url: 'https://forlova.vercel.app', // поменяй на свой домен после деплоя
+  url: 'https://frolova.vercel.app',
   meta: {
     title: 'Наталья Фролова — UX/UI дизайнер',
     description:
